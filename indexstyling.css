@@ -1,0 +1,18 @@
+h1 {
+    color:blue;
+    font-size: 40px;
+    font-family: "Workbench";
+}
+li {
+    color: blue;
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+}
+p {
+    color: blue;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+body {
+    background-color: black;
+}
