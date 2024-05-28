@@ -1,73 +1,481 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-     <!-- Link Dancing Scripts Font to code -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-
-    <!-- Link styling sheet to code-->
-    <link rel = "stylesheet" href = "indexstyling.css">
-
-    <!--Link Major Mono Dispplay font to code-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Major+Mono+Display&display=swap" rel="stylesheet">
-
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rawad Alharastani</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <div>
-        <h1 id = "PageTitle">
-        Rawad Alharastani
-        </h1>
-        <h1 class = "headers" id = "InternshipHeader">
-        Projects and Internships
-        </h1>
-        <ul>   
-        <li class = "listing" id="adaID">ADA Analytics</li>
-        <p class = "disc"> During my time at ADA Analytics from December to April, I had the exciting opportunity to work on the backend development team.<br> Our main project was an 
-        ambitious overhaul of the company's website, aiming to revamp it based on new UX/UI prototypes we meticulously designed. 
-        </p>
-        <p class = "disc">
-        My contributions were centered around developing robust backend functionalities using FastAPI. I created efficient backend endpoints and ensured their 
-        reliability through comprehensive unit tests using pytest. <br>Additionally, I documented all endpoint APIs and utilized Pydantic models for precise response 
-        types, ensuring our system's integrity and scalability. <br> This experience not only honed my technical skills but also deepened my understanding of 
-        integrating backend solutions with modern web design principles. <br> It was a highly rewarding and intellectually stimulating experience that enhanced my expertise 
-        in backend development and web technologies.
-        </p>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,600;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top vv">
+      <div class="container">
+        <a class="navbar-brand fw-bolder" href="#">Rawad</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse primary-navigation" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        
+        </div>
+      </div>
+    </nav>
 
-    <li class = "listing" id = "numbersninjaID"> Numbers Ninja </li>
-    </ul>
+    <!-- -------------------------------------Navigation ends here-------------------------------------- -->
+
+
+
+    <section id="home" class="bg-header page-section" style="background: transparent url(images/2.jpg); padding-top: 200px; padding-bottom: 200px;">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="container-fullscreen">
+                    <div class="">
+                        <div class="col-lg-6">
+                            <div class="pb-5 pt-5">
+                                <h1 class="display-5 mb-0 pb-0 fw-bold">Hi, I'm </h1>
+                                <h1 class="display-2 fw-bolder pb-3 heading-title"><span class="text-warning">Rawad</span>Alharastani</h1>
+                                <p class="lead"></p>
+                                  <div class="icon-circle d-flex align-items-center justify-content-center">
+                                  <a href="#"><i class="lni lni-linkedin"></i></a>
+                                  </div>
+                                  </div>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!------------Top banner ends here--------------------->
+      <section id="about" class="page-section">
+        <div class="container">
+            <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="thumbnail shadow-sm"><img class="w-100 rounded-2" src="images/about-6.jpg" alt="About Images"></div>
+
+
+            </div>
+            <div class="col-lg-6">
+                <h2 class="title display-3 fw-bolder pb-3 pt-5">About Me</h2>
+                <p class="lead pb-3">About me content</p>
+                <div class="accordion" id="accordionExample">
+
+                  <!----------Programming languages dropdown--------------->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Programming Languages
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <ul class="list-unstyled dd">
+                          <li class="pb-3"><a href="/service" class="fw-medium">Python, C, Java, SQL, Postgres, C++ <span> - Backend Languages</span></a> <br>
+                            back end projects go here</li>
+                          <li class="pb-3"><a href="/service" class="fw-medium"> HTML, CSS, JavaScript, React.js, Node.js<span> - FrontEnd</span></a> <br>
+                            front end projects go here</li>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                                <!----Projects dropdown---->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Projects
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <ul class="list-unstyled dd">
+                          <li class="pb-3"><a href="/service" class="fw-medium">ADA Analytics <span> -Internship(Remote)</span></a> <br>
+                            2024</li>
+                          <li class="pb-3"><a href="/service" class="fw-medium">Number Ninja<span> -Project</span></a> <br>
+                            2024</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                                      <!--Work experience dropdown-->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Work Experience 
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul class="list-unstyled dd">
+                                <li class="pb-3"><a href="/service" class="fw-medium">ADA Analytics <span> - Backend Developer (Short-term Intern)</span></a> <br>
+                                    December 2023 - May 2024</li>
+                                <li class="pb-3"><a href="/service" class="fw-medium">Helpline Assistant <span>- Western University</span></a> <br>
+                                    Oct 2022 - Present</li>
+                                <li class="pb-3"><a href="/service" class="fw-medium">File Clerk <span>- Dept of Math and Statistical Sciences (Western University)</span></a> <br>
+                                    May 2022 - August 2022</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+                
+                              <!----Education dropdown-->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Education & Certification
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                         <ul class="list-unstyled dd">
+                          <li class="pb-3"><a href="/service" class="fw-medium">HighSchool Diploma <span> AlRowad International Schools</span></a> <br>
+                            Graduation date: 2016</li>
+                          <li class="pb-3"><a href="/service" class="fw-medium">BSc in Computer Science<span> - Western University</span></a> <br>
+                            Expected Graduation date: 2026</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+            </div>
+            </div>
+          </div>
+        </section>
+<!---------------------About section ends here----------------------------->
+<section id="services" class="page-section">
+<div class="container pt-5">
+    <div class="row pt-5">
+      <div class="col-12 text-center">
+       
+        <h2 class="mb-2 heading-title fw-bolder">Skills and Interests</h2>
+        <p class="text-black-50 mb-5">I am fluent in 
+          business greatly.</p>
+        <div class="row pt-3">
+
+        <div class="col-lg-4 col-md-6 pb-5">
+       <div class="d-flex justify-content-center align-items-center border rounded-circle box-100 mx-auto">
+       <i class="lni lni-apartment"></i>
+       </div>
+        <h5 class="mb-3 mt-5 fw-medium heading-title">Web Development</h5>
+        <p class="mb-4 text-muted"></p>
+        <a href="" class="link-warning fw-bold">View More &rarr;</a>
+        </div>
+        <div class="col-lg-4 col-md-6 pb-5">
+          <div class="d-flex justify-content-center align-items-center border rounded-circle box-100 mx-auto">
+        <i class="lni lni-bar-chart"></i>
+        </div>
+         <h5 class="mb-3 mt-5 fw-medium heading-title">Backend Development</h5>
+         <p class="mb-4 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut mattis metus, id accumsan erat.</p>
+         <a href="" class="link-warning fw-bold">View More &rarr;</a>
+         </div>
+         <div class="col-lg-4 col-md-6 pb-5">
+          <div class="d-flex justify-content-center align-items-center border rounded-circle box-100 mx-auto">
+        <i class="lni lni-bar-chart"></i>
+        </div>
+         <h5 class="mb-3 mt-5 fw-medium heading-title">Service Heading Here</h5>
+         <p class="mb-4 text-muted">.</p>
+         <a href="" class="link-warning fw-bold">View More &rarr;</a>
+         </div>
+        </div>
+
+        
+        
+      </div>
     </div>
-
-    <h1 class = "headers">
-        Socials
-    </h1>
-
-    <ul class = "socials-list">
-        <li class = "socials"><a id = "githubMargin" href = "https://github.com/ralharas">Github
-        </a></li>
-        <li class = "socials" > <a id = "linkedinMargin" href = "https://ca.linkedin.com/in/rawad-alharastani-b18235232">
-        LinkedIn</a></li>
-    </ul>
-<!--Might need a div tag here-->
-
-    <div>
-
-        <h1 class = "headers">
-            Programming Languages
-        </h1>
-
-        <p class = "disc">I am fluent in several programming languages, below are the languages I am most comfortable in
-        </p>
-
-        <img src = "assets/python.jpg" class = "skills-customsize" />
+  </div>
+</section>
+<!-- ------------------------------Sevices section ends here------------------------------- -->
+<section id="portfolio" class="page-section">
+<div class="container pt-5">
+    <div class="row pt-5">
+        <div class="col-12 text-center">
+            <h2 class="mb-2 heading-title fw-bolder">My Latest Project</h2>
+            <p class="text-black-50 mb-5">Our design projects are fresh and simple and will benefit your
+                 business greatly.</p>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+    <div class="row g-0">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="...">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="....">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="...">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="...">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="...">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="image-wrappper">
+                <img src="....">
+                <div class="inner-text">
+                    <p>Development</p>
+                    <h4 class="heading-title fw-medium">Getting tickets to the big show</h4>
+                    <div class="pt-4"><a class="btn btn-lg btn-outline-light px-4" href="/portfolio-details">View Details</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ----------------------------Portfolio section ends here------------------------ -->
+<section id="testimonials" class="page-section">
+<div class="py-5">
+  <div class="container py-5">
+    <div class="row">
+      <div class="testimonials owl-theme owl-carousel">
+        <div class="position-relative text-center kk">
+          <div class="author-img"> <img src="...." class="shadow-lg border border-light"> </div>
+          <div class="bg-commo py-4 px-5" style="position:absolute; top:65px;">
+            <p class="testi-text text-muted py-4 mt-5 px-5">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare consequat augue, eget interdum augue finibus non. Cras mi nulla, commodo vel rhoncus quis, lacinia eu ligula." </p>
+            <hr>
+            <h2 class="testi-heading pt-4 mb-3">Christian Nguyen</h2>
+            <p class="mb-4 small font-medium hh text-uppercase text-muted">Web Developer</p>
+          </div>
+        </div>
+        <div class="position-relative text-center kk">
+          <div class="author-img"> <img src="..." class="shadow-lg border border-light"> </div>
+          <div class="bg-commo py-4 px-5" style="position:absolute; top:65px;">
+            <p class="testi-text text-muted py-4 mt-5 px-5">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare consequat augue, eget interdum augue finibus non. Cras mi nulla, commodo vel rhoncus quis, lacinia eu ligula." </p>
+            <hr>
+            <h2 class="testi-heading pt-4 mb-3">John Deo</h2>
+            <p class="mb-4 small font-medium hh text-uppercase text-muted">Web Developer</p>
+          </div>
+        </div>
+        <div class="position-relative text-center kk">
+          <div class="author-img"> <img src="...." class="shadow-lg border border-light"> </div>
+          <div class="bg-commo py-4 px-5" style="position:absolute; top:65px;">
+            <p class="testi-text text-muted py-4 mt-5 px-5">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare consequat augue, eget interdum augue finibus non. Cras mi nulla, commodo vel rhoncus quis, lacinia eu ligula." </p>
+            <hr>
+            <h2 class="testi-heading pt-4 mb-3">Pristena James</h2>
+            <p class="mb-4 small font-medium hh text-uppercase text-muted">Web Developer</p>
+          </div>
+        </div>
+        <div class="position-relative text-center kk">
+          <div class="author-img"> <img src="..." class="shadow-lg border border-light"> </div>
+          <div class="bg-commo py-4 px-5" style="position:absolute; top:65px;">
+            <p class="testi-text text-muted py-4 mt-5 px-5">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare consequat augue, eget interdum augue finibus non. Cras mi nulla, commodo vel rhoncus quis, lacinia eu ligula." </p>
+            <hr>
+            <h2 class="testi-heading pt-4 mb-3">Hari Rich</h2>
+            <p class="mb-4 small font-medium hh text-uppercase text-muted">Web Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- -----------------------------------------------------Testimonial section ends here-------------------------------------- -->
+
+<section id="contact" class="page-section">
+<div class="container pt-5">
+    <div class="row justify-content-between pt-5">
+        <div class="col-lg-5">
+            <h2 class="mb-2 heading-title fw-bolder">Hire Me.</h2>
+            <p class="text-black-50 mb-5">I am available for freelance work. Connect with me via phone: <span class="fw-bold">088534574</span> or email: <span class="fw-bold">admin@example.com</span></p>
+       <div>
+        <form>
+            <div class="form-group pb-4">
+              
+                <input type="text" class="form-control form-control-lg" placeholder="Your name">
+                
+              </div>
+            <div class="form-group pb-4">
+             
+              <input type="email" class="form-control form-control-lg" placeholder="Your email">
+           
+            </div>
+            <div class="form-group pb-4">
+              
+                <input type="text" class="form-control form-control-lg" placeholder="Write a subject">
+                
+              </div>
+              <div class="form-group pb-4">
+                <textarea type="text" class="form-control form-control-lg" name="message" placeholder="Your Message"></textarea>
+                
+              </div>
+         
+            <button type="submit" class="btn btn-warning btn-lg px-5 py-3">Submit</button>
+          </form>
+       </div>
+        </div>
+        <div class="col-lg-6">
+             <img src="images/about-5.jpg" class="img-fluid">
+        </div>
+    </div>
+</div>
+</section>
+<!-- ----------------------------Contact section ends here------------------------ -->
+<div class="footer bg-dark py-4 mt-5">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 text-white d-flex align-items-center ">
+      <div class="py-3">
+        Copyright © 2023 YourName. All Rights Reserved.
+      </div>      
+    </div>
+    <div class="col-lg-6">
+      <div class="d-flex justify-content-lg-end justify-content-center">
+        <div class="icon-circle d-flex align-items-center justify-content-center">
+        <a href="#"><i class="lni lni-facebook-filled"></i></a>
+        </div>
+         <div class="icon-circle d-flex align-items-center justify-content-center">
+        <a href="#"><i class="lni lni-twitter-filled"></i></a>
+        </div>
+         <div class="icon-circle d-flex align-items-center justify-content-center">
+        <a href="#"><i class="lni lni-youtube"></i></a>
+        </div>
+         <div class="icon-circle d-flex align-items-center justify-content-center">
+        <a href="#"><i class="lni lni-instagram-filled"></i></a>
+        </div>
+        <div class="icon-circle d-flex align-items-center justify-content-center">
+        <a href="#"><i class="lni lni-linkedin"></i></a>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script> 
+    <script>
+      const navigation = document.querySelector(".primary-navigation");
+      
+      const navigationHeight = navigation.offsetHeight;
+      
+      document.documentElement.style.setProperty(
+        "--scroll-padding",
+        navigationHeight + "px"
+      );
+      $('.navbar-collapse a').click(function(){
+            $(".navbar-collapse").collapse('hide');
+        });
+        $(window).scroll(function(){
+    if ($(this).scrollTop() > 50) {
+       $('.vv').addClass('vv2 shadow-sm');
+    } else {
+       $('.vv').removeClass('vv2 shadow-sm');
+    }
+});
+/* Code for changing active
+			link on clicking */
+			var btns =
+				$(".navbar-nav .nav-link");
+
+			for (var i = 0; i < btns.length; i++) {
+				btns[i].addEventListener("click",
+									function () {
+					var current = document
+						.getElementsByClassName("active");
+
+					current[0].className = current[0]
+						.className.replace(" active", "");
+
+					this.className += " active";
+				});
+			}
+
+			/* Code for changing active
+			link on Scrolling */
+			$(window).scroll(function () {
+				var distance = $(window).scrollTop();
+				$('.page-section').each(function (i) {
+
+					if ($(this).position().top
+						<= distance + 250) {
+						
+							$('a.nav-link.active')
+								.removeClass('active');
+
+							$('a.nav-link').eq(i)
+								.addClass('active');
+					}
+				});
+			}).scroll();
+
+      $('.testimonials').owlCarousel({
+    loop:false,
+    margin:20,
+    nav:false,
+    dots:true,
+	 responsive:{
+        0:{
+            items:1
+        }
+    }
+})
+      </script>
+  </body>
 </html>

@@ -1,21 +1,25 @@
-html {
-    background-color: rgb(0, 0, 0);
+.container {
+    background-color: #AF8F6F;
 }
+
 .headers {
+    display: grid;
+    grid-template-columns: span 4;
     color:blue;
-    font-size: 40px;
-    font-family: "Workbench";
+    font-size: 30px;
+    font-family: "Dancing Script";
 }
 .listing {
     color: blue;
     font-size: 25px;
     font-family: 'Major Mono Display';
+    list-style-type: none;
 }
 .disc {
     color: blue;
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
-    border: 5px solid skyblue;
+    border: 5px solid #F8F4E1;
 }
 
 .skills-customsize {
@@ -24,7 +28,7 @@ html {
     font-family: 'Times New Roman', Times, serif;
     width: 85px;
     height: 80px;
-    }
+}
      
 .socials-list {
     display: flex;
@@ -57,3 +61,4 @@ html {
     font-size: 15px;
     font-family: 'Times New Roman,', Times, serif;
 }
+
