@@ -11,13 +11,14 @@
     <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+    <link rel="stylesheet" href="indexstyling.css">
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top vv">
       <div class="container">
-        <a class="navbar-brand fw-bolder" href="#">Rawad</a>
+        <a class="navbar-brand fw-bolder" href="#">Rawad Alharastani</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,7 +60,7 @@
                         <div class="col-lg-6">
                             <div class="pb-5 pt-5">
                                 <h1 class="display-5 mb-0 pb-0 fw-bold">Hi, I'm </h1>
-                                <h1 class="display-2 fw-bolder pb-3 heading-title"><span class="text-warning">Rawad</span>Alharastani</h1>
+                                <h1 class="display-2 fw-bolder pb-3 heading-title"><span class="text-warning">Rawad</span></h1>
                                 <p class="lead"></p>
                                   <div class="icon-circle d-flex align-items-center justify-content-center">
                                   <a href="#"><i class="lni lni-linkedin"></i></a>
@@ -77,7 +78,6 @@
         <div class="container">
             <div class="row justify-content-between">
             <div class="col-lg-5">
-                <div class="thumbnail shadow-sm"><img class="w-100 rounded-2" src="images/about-6.jpg" alt="About Images"></div>
 
 
             </div>
@@ -86,8 +86,40 @@
                 <p class="lead pb-3">About me content</p>
                 <div class="accordion" id="accordionExample">
 
-                  <!----------Programming languages dropdown--------------->
-                  <div class="accordion-item">
+                <div class="col-lg-6">
+                    <h2 class="title display-3 fw-bolder pb-3 pt-5">Programming languages</h2>
+                    <div class="accordion" id="accordionExample">
+                      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
+                        <div class="carousel-inner flex-container">
+                          <div class="carousel-item active" data-bs-interval="1000">
+                            <img src="./assets/python.jpg" class="d-block w-100" alt="Python">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="1000">
+                            <img src="assets/CSS-Logo.jpg" class="d-block w-100" alt="CSS">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="1000">
+                            <img src="assets/html.png" class="d-block w-100" alt="html">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="1000">
+                            <img src="assets/javascript.png" class="d-block w-100" alt="html">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="1000">
+                            <img src="assets/java.jpg" class="d-block w-100" alt="html">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+              
+                                      <!--Work experience dropdown-->
+
+                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                       <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         Programming Languages
@@ -104,28 +136,8 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
+                  </div>  
 
-                                <!----Projects dropdown---->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                      <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Projects
-                      </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <ul class="list-unstyled dd">
-                          <li class="pb-3"><a href="/service" class="fw-medium">ADA Analytics <span> -Internship(Remote)</span></a> <br>
-                            2024</li>
-                          <li class="pb-3"><a href="/service" class="fw-medium">Number Ninja<span> -Project</span></a> <br>
-                            2024</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                                      <!--Work experience dropdown-->
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -376,6 +388,7 @@
     </div>
 </div>
 </section>
+
 <!-- ----------------------------Contact section ends here------------------------ -->
 <div class="footer bg-dark py-4 mt-5">
 <div class="container">

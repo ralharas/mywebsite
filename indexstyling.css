@@ -1,64 +1,11 @@
-.container {
-    background-color: #AF8F6F;
-}
+.carousel {
+    width: 140px;
+    height:210px;
+    margin-left: 640px;
+    margin-top: 160px;
+    margin-bottom: 20px;
+  }
 
-.headers {
-    display: grid;
-    grid-template-columns: span 4;
-    color:blue;
-    font-size: 30px;
-    font-family: "Dancing Script";
-}
-.listing {
-    color: blue;
-    font-size: 25px;
-    font-family: 'Major Mono Display';
-    list-style-type: none;
-}
-.disc {
-    color: blue;
-    font-size: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    border: 5px solid #F8F4E1;
-}
-
-.skills-customsize {
-    color: blue;
-    font-size: 25px;
-    font-family: 'Times New Roman', Times, serif;
-    width: 85px;
-    height: 80px;
-}
-     
-.socials-list {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.socials-list .socials {
-    margin-right: 20px;
-}
-
-#linkedinMargin {
-    margin-top: 0;
-    margin-right: 0;
-}
-
-#InternshipHeader {
-    font-family: 'Dancing Script';
-}
-
-#PageTitle {
-    color: blue;
-    font-size: 50px;
-    font-family: 'Dancing Script';
-}
-
-.socials a {
-    color: blue;
-    font-size: 15px;
-    font-family: 'Times New Roman,', Times, serif;
-}
-
+  .carousel-inner img {
+    margin: auto;
+  }
