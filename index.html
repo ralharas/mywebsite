@@ -30,9 +30,6 @@
             <li class="nav-item">
               <a class="nav-link" href="#about">About</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#services">Languages</a>
-            </li>
             <li class = "nav-item">
               <a class = "nav-link" href="#contact">Contact Us</a>
             </li>
@@ -158,7 +155,7 @@
                       <div class="accordion-body">
                          <ul class="list-unstyled dd">
                           <li class="pb-3"><a href="/service" class="fw-medium">HighSchool Diploma <span> -AlRowad International Schools</span></a> <br>
-                            Graduation date: 2016</li>
+                            Graduation date: 2017</li>
                           <li class="pb-3"><a href="/service" class="fw-medium">BSc in Computer Science<span> - Western University</span></a> <br>
                             Expected Graduation date: 2026</li>
                         </ul>
@@ -217,7 +214,7 @@
             <h2 class="mb-2 heading-title fw-bolder">Connect with us</h2>
             <p class="text-black-50 mb-5">Connect with us now and let's talk about building your website <span class="fw-bold"></span> <span class="fw-bold"></span></p>
        <div>
-        <form>
+        <form id = "contact-form">
             <div class="form-group pb-4">
               
                 <input type="text" class="form-control form-control-lg" placeholder="Your name">
@@ -273,6 +270,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script> 
+    <script type = "text/javascript" src = "https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type = "text/javascript">
+      (function () {
+        emailjs.init("_Or2TbMvwxIlC_IsV")
+      })();
+    </script>
     <script src="index.js"></script>
 
   </body>

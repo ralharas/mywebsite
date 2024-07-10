@@ -73,3 +73,15 @@ document.getElementById('download-resume').addEventListener('click', function() 
     downloadLink.click();
     document.body.removeChild(downloadLink);
 });
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    emailjs.sendForm('service_2fz2qgd', 'template_z3idx7n', this)
+        .then(function() {
+            console.log('SUCSESS!');
+            alert("Your message has been sent successfully");
+        }, function(error) {
+            console.log('FAILED....', error);
+            alert('There was an error sending your message, Please email rawadalh233@gmail.com');
+        });
+});
