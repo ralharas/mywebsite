@@ -85,3 +85,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
             alert('There was an error sending your message, Please email rawadalh233@gmail.com');
         });
 });
+
+/* 1-fix linkedin link
+   2-start impelementing projects section inside the website
+*/
