@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" href="/css/project.css">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="<%= project.background_img %>" class="img-fluid w-100" alt="Project Background">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1><%= project.title %></h1>
+            <p><%= project.long_description %></p>
+            <a href="<%= project.github_link %>" class="btn btn-primary">View code on GitHub</a>
+            <a href="<%= project.live_demo %>" class="btn btn-secondary">View live demo</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <img src="<%= project.img2 %>" class="img-fluid" alt="Project Image">
+        </div>
+        <div class="col-md-4">
+            <img src="<%= project.img3 %>" class="img-fluid" alt="Project Image">
+        </div>
+        <div class="col-md-4">
+            <img src="<%= project.img4 %>" class="img-fluid" alt="Project Image">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Walkthrough</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Step 1:</strong> <%= project.walkthrough_step1 %></li>
+                <li class="list-group-item"><strong>Step 2:</strong> <%= project.walkthrough_step2 %></li>
+                <li class="list-group-item"><strong>Step 3:</strong> <%= project.walkthrough_step3 %></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<%- include('partials/footer') %>
