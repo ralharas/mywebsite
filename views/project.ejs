@@ -3,26 +3,41 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
-            <img src="<%= project.background_img %>" class="img-fluid w-100" alt="Project Background">
+            <div id="projectCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="<%= project.background_img %>" class="d-block w-100" alt="Project Background">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="<%= project.img2 %>" class="d-block w-100" alt="Project Image 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="<%= project.img3 %>" class="d-block w-100" alt="Project Image 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="<%= project.img4 %>" class="d-block w-100" alt="Project Image 4">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <h1><%= project.title %></h1>
-            <p><%= project.long_description %></p>
+            <p><%= project.description %></p>
             <a href="<%= project.github_link %>" class="btn btn-primary">View code on GitHub</a>
             <a href="<%= project.live_demo %>" class="btn btn-secondary">View live demo</a>
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-md-4">
-            <img src="<%= project.img2 %>" class="img-fluid" alt="Project Image">
+            <img src="<%= project.img2 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="1" alt="Project Image">
         </div>
         <div class="col-md-4">
-            <img src="<%= project.img3 %>" class="img-fluid" alt="Project Image">
+            <img src="<%= project.img3 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="2" alt="Project Image">
         </div>
         <div class="col-md-4">
-            <img src="<%= project.img4 %>" class="img-fluid" alt="Project Image">
+            <img src="<%= project.img4 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="3" alt="Project Image">
         </div>
     </div>
     <div class="row mt-5">
@@ -36,4 +51,17 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('.clickable-image[data-slide-to="0"]').addClass('selected-image');
+    $('#projectCarousel').on('slide.bs.carousel', function (e) {
+        $('.clickable-image').removeClass('selected-image');
+        $('.clickable-image[data-slide-to="' + $(e.relatedTarget).index() + '"]').addClass('selected-image');
+    });
+});
+</script>
+
 <%- include('partials/footer') %>

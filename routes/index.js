@@ -3,7 +3,6 @@ import db from '../db/db.js';
 
 const router = express.Router();
 
-// Projects Overview Page
 router.get('/projects', async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
@@ -14,7 +13,6 @@ router.get('/projects', async (req, res) => {
     }
 });
 
-// Detailed Project Page
 router.get('/projects/:id', async (req, res) => {
     const { id } = req.params;
     try {

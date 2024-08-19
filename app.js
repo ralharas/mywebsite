@@ -6,19 +6,17 @@ import adminRouter from './routes/admin.js';
 
 const app = express();
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', adminRouter);
+
 app.get('/', (req, res) => {
     res.render('index');
 });
-
 
 app.get('/about', (req, res) => {
     res.render('about');

@@ -7,6 +7,11 @@ img.img-fluid {
     height: auto;
     margin-bottom: 30px;
     border-radius: 5px;
+    cursor: pointer; 
+}
+
+.carousel-item img {
+    border-radius: 5px;
 }
 
 h1 {
@@ -37,32 +42,6 @@ p {
     background-color: #0056b3;
 }
 
-.card-img-top {
-    height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.card-text {
-    font-size: 1rem;
-    color: #6c757d;
-}
-
-.walkthrough {
-    margin-top: 50px;
-}
-
-.walkthrough h3 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
 .list-group-item {
     font-size: 1.1rem;
     line-height: 1.6;
@@ -84,4 +63,9 @@ p {
         width: 100%;
         margin-bottom: 15px;
     }
+}
+
+.selected-image {
+    border: 5px solid #007bff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
 }
