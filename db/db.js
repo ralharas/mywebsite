@@ -1,9 +1,10 @@
-import pg from 'pg';
 import dotenv from 'dot-env';
 
-
-const { Pool } = pg;
 dotenv.config();
+
+import pg from 'pg';
+const { Pool } = pg;
+
 
 const pool = new Pool ({
     user: process.env.USER,
