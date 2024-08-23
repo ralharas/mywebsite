@@ -28,7 +28,7 @@ app.get('/contact', (req, res) => {
     res.render('contact');
 });
 
-app.post('/send-email', (req, res) => {
+app.post('/send', (req, res) => {
     const { name, email, subject, message } = req.body;
 
    
