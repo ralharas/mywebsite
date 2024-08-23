@@ -1,8 +1,3 @@
-/**Before push do the following:
-1-Fix tab title where it says "Your website" to something more desprictive.
-2-Add crypto app and fix contact me form issue.
-3-Ensure all functionality work before hosting the page on the web */
-
 import express from 'express';
 import multer from 'multer';
 import db from '../db/db.js'; 
@@ -11,7 +6,7 @@ const router = express.Router();
 
 
 router.use('/admin', (req, res, next) => {
-    const auth = { login: 'rawad', password: 'rawad2001' }; 
+    const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
 
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
