@@ -4,7 +4,6 @@ import db from '../db/db.js';
 
 const router = express.Router();
 
-
 router.use('/admin', (req, res, next) => {
     const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
 
@@ -16,11 +15,9 @@ router.use('/admin', (req, res, next) => {
         return next(); 
     }
 
-   
     res.set('WWW-Authenticate', 'Basic realm="401"'); 
     res.status(401).send('Authentication required.'); 
 });
-
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -33,14 +30,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 router.get('/admin', (req, res) => {
     if (!req.isAuthenticated) {
         return res.status(401).send('Authentication required.');
     }
     res.render('admin'); 
 });
-
 
 router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
     const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
