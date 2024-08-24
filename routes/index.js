@@ -15,6 +15,7 @@ router.get('/projects', async (req, res) => {
 
 router.get('/projects/:id', async (req, res) => {
     const { id } = req.params;
+    const isAdmin = req.user && req.user.isAdmin ? req.user.isAdmin : false;
     try {
         const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
         if (result.rows.length > 0) {

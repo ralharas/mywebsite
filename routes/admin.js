@@ -13,7 +13,12 @@ router.use('/admin', (req, res, next) => {
         req.isAuthenticated = true;
         req.user = { isAdmin: true };
         return next(); 
-    }
+    } 
+    else{
+            req.isAuthenticated = false;
+            req.user= {isAdmin: false};
+        }
+    next();
 
     res.set('WWW-Authenticate', 'Basic realm="401"'); 
     res.status(401).send('Authentication required.'); 
@@ -55,6 +60,13 @@ router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' 
         res.status(500).send('Error adding project to the database');
     }
 });
+
+function requireAdmin(req, res, next) {
+    if (req.user && req.user.isAdmin) {
+        return next();
+    }
+    res.status(401).send('Admin access required.');
+}
 
 router.get('/admin/edit/:id', async (req, res) => {
     if (!req.isAuthenticated) {
