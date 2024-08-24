@@ -18,7 +18,7 @@ router.get('/projects/:id', async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
         if (result.rows.length > 0) {
-            res.render('project', { project: result.rows[0] });
+            res.render('project', { project: result.rows[0], isAdmin: req.user.isAdmin });
         } else {
             res.status(404).send('Project not found');
         }
