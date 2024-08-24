@@ -4,26 +4,21 @@ import db from '../db/db.js';
 
 const router = express.Router();
 
-router.use('/admin', (req, res, next) => {
+router.use((req, res, next) => {
     const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
 
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    
     if (login && password && login === auth.login && password === auth.password) {
-        req.isAuthenticated = true;
-        req.user = { isAdmin: true };
-        return next(); 
-    } 
-    else{
-            req.isAuthenticated = false;
-            req.user= {isAdmin: false};
-        }
+        req.isAuthenticated = true;  
+        req.user = { isAdmin: true }; 
+    } else {
+        return res.status(401).send('Authentication required.');
+    }
+
     next();
-
-    res.set('WWW-Authenticate', 'Basic realm="401"'); 
-    res.status(401).send('Authentication required.'); 
 });
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads/');
@@ -70,15 +65,14 @@ function requireAdmin(req, res, next) {
 
 router.get('/admin/edit/:id', async (req, res) => {
     if (!req.isAuthenticated) {
-        return res.status(401).send('Authentication required.');
+        return res.status(401).send('Admin access required.');
     }
-    
+
     const { id } = req.params;
-    
     try {
         const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
         if (result.rows.length > 0) {
-            res.render('edit', { project: result.rows[0] });
+            res.render('edit', { project: result.rows[0] }); 
         } else {
             res.status(404).send('Project not found');
         }
