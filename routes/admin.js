@@ -56,4 +56,45 @@ router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' 
     }
 });
 
+router.get('/admin/edit/:id', async (req, res) => {
+    if (!req.isAuthenticated) {
+        return res.status(401).send('Authentication required.');
+    }
+    
+    const { id } = req.params;
+    
+    try {
+        const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
+        if (result.rows.length > 0) {
+            res.render('edit', { project: result.rows[0] });
+        } else {
+            res.status(404).send('Project not found');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching project details');
+    }
+});
+
+
+router.post('/admin/edit/:id', upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
+    const { id } = req.params;
+    const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+    const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : req.body.existing_background_img;
+    const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : req.body.existing_img2;
+    const img3 = req.files['img3'] ? `/uploads/${req.files['img3'][0].filename}` : req.body.existing_img3;
+    const img4 = req.files['img4'] ? `/uploads/${req.files['img4'][0].filename}` : req.body.existing_img4;
+
+    try {
+        await db.query(
+            'UPDATE projects SET title = $1, description = $2, github_link = $3, live_demo = $4, background_img = $5, img2 = $6, img3 = $7, img4 = $8, walkthrough_step1 = $9, walkthrough_step2 = $10, walkthrough_step3 = $11 WHERE id = $12',
+            [title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3, id]
+        );
+        res.send('Project updated successfully!');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error updating project in the database');
+    }
+});
+
 export default router;

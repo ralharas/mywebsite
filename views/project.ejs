@@ -38,6 +38,10 @@
             <p><%- project.description.replace(/\n/g, '<br>') %></p>
             <a href="<%= project.github_link %>" class="btn btn-primary">View code on GitHub</a>
             <a href="<%= project.live_demo %>" class="btn btn-secondary">View live demo</a>
+
+            <% if (isAdmin) { %>
+                <a href="/admin/edit/<%= project.id %>" class="btn btn-warning">Edit Project</a>
+                <% } %>
         </div>
     </div>
     <div class="row mt-5">
