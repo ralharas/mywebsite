@@ -65,7 +65,7 @@ router.get('/admin/edit', async (req, res) => {
 
     try {
         const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
-        res.render('projects', { projects: result.rows, isAdmin: true }); 
+        res.render('admin_project', { projects: result.rows, isAdmin: true }); 
     } catch (err) {
         console.error(err);
         res.status(500).send('Error fetching projects');
