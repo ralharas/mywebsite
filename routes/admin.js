@@ -4,7 +4,8 @@ import db from '../db/db.js';
 
 const router = express.Router();
 
-router.use((req, res, next) => {
+
+function adminAuth(req, res, next) {
     const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
 
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
@@ -13,33 +14,19 @@ router.use((req, res, next) => {
     if (login && password && login === auth.login && password === auth.password) {
         req.isAuthenticated = true;  
         req.user = { isAdmin: true }; 
+        return next();
     } else {
+        res.set('WWW-Authenticate', 'Basic realm="401"'); 
         return res.status(401).send('Authentication required.');
     }
-
-    next();
-});
+}
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
-
-router.get('/admin', (req, res) => {
-    if (!req.isAuthenticated) {
-        return res.status(401).send('Authentication required.');
-    }
+router.get('/admin', adminAuth, (req, res) => {
     res.render('admin'); 
 });
 
-router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
+router.post('/admin', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
     const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
     const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : null;
     const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : null;
@@ -58,11 +45,7 @@ router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' 
     }
 });
 
-router.get('/admin/edit', async (req, res) => {
-    if (!req.isAuthenticated) {
-        return res.status(401).send('Admin access required.');
-    }
-
+router.get('/admin/edit', adminAuth, async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
         res.render('admin_project', { projects: result.rows, isAdmin: true }); 
@@ -72,18 +55,7 @@ router.get('/admin/edit', async (req, res) => {
     }
 });
 
-function requireAdmin(req, res, next) {
-    if (req.user && req.user.isAdmin) {
-        return next();
-    }
-    res.status(401).send('Admin access required.');
-}
-
-router.get('/admin/edit/:id', async (req, res) => {
-    if (!req.isAuthenticated) {
-        return res.status(401).send('Admin access required.');
-    }
-
+router.get('/admin/edit/:id', adminAuth, async (req, res) => {
     const { id } = req.params;
     try {
         const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
@@ -98,8 +70,7 @@ router.get('/admin/edit/:id', async (req, res) => {
     }
 });
 
-
-router.post('/admin/edit/:id', upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
+router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
     const { id } = req.params;
     const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
     const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : req.body.existing_background_img;

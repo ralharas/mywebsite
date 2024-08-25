@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import nodemailer from 'nodemailer';
 import indexRouter from './routes/index.js'; 
 import adminRouter from './routes/admin.js';
 
@@ -13,9 +12,10 @@ const __dirname = path.dirname(__filename);
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use('/', indexRouter);
 app.use('/', adminRouter);
-app.use(express.json());
 
 app.get('/', (req, res) => {
     res.render('index');
