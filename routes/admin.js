@@ -19,6 +19,8 @@ router.use((req, res, next) => {
 
     next();
 });
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads/');
@@ -53,6 +55,20 @@ router.post('/admin', upload.fields([{ name: 'background_img' }, { name: 'img2' 
     } catch (err) {
         console.error(err);
         res.status(500).send('Error adding project to the database');
+    }
+});
+
+router.get('/admin/edit', async (req, res) => {
+    if (!req.isAuthenticated) {
+        return res.status(401).send('Admin access required.');
+    }
+
+    try {
+        const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
+        res.render('projects', { projects: result.rows, isAdmin: true }); 
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching projects');
     }
 });
 
