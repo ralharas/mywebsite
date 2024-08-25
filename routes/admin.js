@@ -5,6 +5,17 @@ import db from '../db/db.js';
 const router = express.Router();
 
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage }); 
+
 function adminAuth(req, res, next) {
     const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
 
