@@ -80,15 +80,6 @@ p {
 }
 
 
-.carousel-control-prev {
-    left: -50px; 
-}
-
-.carousel-control-next {
-    right: -50px; 
-}
-
-
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: black; 
