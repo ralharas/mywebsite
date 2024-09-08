@@ -69,3 +69,29 @@ p {
     border: 5px solid #007bff; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
 }
+
+
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 5%; 
+    top: 50%; 
+    transform: translateY(-50%);
+    z-index: 5; 
+}
+
+
+.carousel-control-prev {
+    left: -50px; 
+}
+
+.carousel-control-next {
+    right: -50px; 
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black; 
+    border-radius: 50%;
+    filter: invert(1); 
+}
