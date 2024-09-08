@@ -37,24 +37,26 @@ router.get('/admin', adminAuth, (req, res) => {
     res.render('admin'); 
 });
 
-router.post('/admin', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
-    const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
-    const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : null;
-    const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : null;
-    const img3 = req.files['img3'] ? `/uploads/${req.files['img3'][0].filename}` : null;
-    const img4 = req.files['img4'] ? `/uploads/${req.files['img4'][0].filename}` : null;
+
+router.post('/admin', adminAuth, async (req, res) => {
+    const { title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+    const backgroundImageUrl = background_img || null;
+    const image2Url = img2 || null;
+    const image3Url = img3 || null;
+    const image4Url = img4 || null;
 
     try {
         await db.query(
             'INSERT INTO projects (title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-            [title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3]
+            [title, description, github_link, live_demo, backgroundImageUrl, image2Url, image3Url, image4Url, walkthrough_step1, walkthrough_step2, walkthrough_step3]
         );
         res.send('Project added successfully!');
     } catch (err) {
-        console.error(err);
+        console.error('Error adding project:', err);
         res.status(500).send('Error adding project to the database');
     }
 });
+
 
 router.get('/admin/edit', adminAuth, async (req, res) => {
     try {
