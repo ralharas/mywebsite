@@ -71,18 +71,34 @@ p {
 }
 
 
+
 .carousel-control-prev, 
 .carousel-control-next {
-    width: 5%; 
+    width: 5%;
     top: 50%; 
-    transform: translateY(-50%);
+    transform: translateY(-50%); 
     z-index: 5; 
+    color: black; 
+}
+
+
+.carousel-control-prev {
+    left: 15px;
+}
+
+.carousel-control-next {
+    right: 15px; 
 }
 
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: black; 
-    border-radius: 50%;
+    background-size: 50%;
+    border-radius: 50%; 
     filter: invert(1); 
+}
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: gray; 
 }
