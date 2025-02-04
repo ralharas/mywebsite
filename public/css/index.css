@@ -106,8 +106,10 @@
         font-size: 3.5rem;
     }
 
-    .about-section {
+    .about-section, .projects-section {
+        display: flex;
         flex-direction: column;
+        align-items: center;
         text-align: center;
     }
 
@@ -122,5 +124,24 @@
 
     .projects-heading {
         font-size: 2.5rem;
+    }
+
+    .about-section.reverse, .projects-section.reverse {
+        flex-direction: column;  /* Disable reverse on mobile */
+    }
+
+    .about-image, .projects-image {
+        margin-bottom: 20px;
+    }
+
+    .about-text h2, .projects-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-text p, .projects-text p {
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 90%;
+        margin: 0 auto;
     }
 }
