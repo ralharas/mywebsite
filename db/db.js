@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+/*import dotenv from 'dotenv';
 dotenv.config();
 import pg from 'pg';
 
@@ -11,12 +11,12 @@ const pool = new Pool({
   password: process.env.PASSWORD,
   port: process.env.PORT,
 });
-
 export default {
   query: (text, params) => pool.query(text, params),
-};
+};*/
 
-/*import pkg from 'pg';
+
+import pkg from 'pg';
 
 const { Pool } = pkg;
 
@@ -24,8 +24,8 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'my-website',
-    password: '',
+    password: 'rawad2004',
     port: 5433, 
 });
 
-export default pool;*/
+export default pool;
