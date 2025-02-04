@@ -1,36 +1,47 @@
 <%- include('partials/header') %>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css"> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <div class="container text-center mt-5">
     <h1>About Me</h1>
-    <p>I've always had a love-hate relationship with computers: I love them when they work and hate them when they don’t. After high school, I had a brief fling with the idea of understanding how these 
-        mysterious boxes worked. However, I soon got sidetracked and ended up on a two-year hiatus. But, like all great stories, mine had a comeback! In the summer of 2022, I decided it was time to 
-        rekindle that old flame and dive headfirst into the world of computers by joining Western University to pursue a degree in Computer Science.
-    Now, I'm passionately tangled in the web of both web and software development, aiming to craft intuitive and engaging user experiences. Not to mention, I'm also dabbling in the dark arts of machine
-     learning—because why not teach computers to learn when I’m already trying to learn them? My journey back to school has been driven by this exciting mix of creativity and logic, with a mission t
-     o build smart solutions that solve real-world problems. Who knew a casual interest in computers could turn into such an adventure?</p>
+    <p>I've always had a love-hate relationship with computers: I love them when they work and hate them when they don’t. After high school, I flirted with the idea of understanding how these mysterious boxes worked. 
+       But life had other plans, and I took a two-year hiatus. Like all great stories, though, mine had a comeback! In the summer of 2022, I rekindled that old flame and dove headfirst into the world of technology 
+       by joining Western University to pursue a degree in Computer Science and Political Science.</p>
+       
+    <p>Now, I’m deeply immersed in the <strong>data field</strong>, exploring the intersection of <strong>data development</strong>, <strong>machine learning</strong>, and <strong>AI</strong>. My work with companies like <strong>ADA Analytics</strong> and <strong>Maskwa Gourmet Foods</strong> 
+       sharpened my skills in <strong>backend development</strong> and <strong>data management</strong>. Starting <strong>May 2025</strong>, I’ll be a <strong>Data Developer intern at Celestica</strong>, where I’ll work closely with <strong>Oracle</strong> and <strong>Power BI</strong>, blending 
+       my passion for data with AI-driven solutions to create impactful, real-world applications. What began as a casual interest in computers has turned into a dynamic journey of building smart, data-powered technologies.</p>
 
     <h1>Technical Expertise in Front-End and Web Development</h1>
-    <p>My passion for front-end development and web development is evident through my technical expertise and project experiences. I am proficient in HTML, CSS, JavaScript, and frameworks such as NodeJS,
-         ReactJS, and ExpressJS. I have successfully designed and developed over five websites, constantly working on ongoing projects to refine my skills further. Additionally, my knowledge extends to 
-         mobile development using React Native and Swift, demonstrating my versatility in handling various platforms. I have developed critical features like login/logout functionalities, chat 
+    <p>My passion for front-end development and web development is evident through my technical expertise and project experiences. I am proficient in HTML, CSS, JavaScript, and frameworks such as <strong>NodeJS</strong>,
+         <strong>ReactJS</strong>, and <strong>ExpressJS</strong>. I have successfully designed and developed over five websites, constantly working on ongoing projects to refine my skills further. Additionally, my knowledge extends to 
+         mobile development using <strong>React Native</strong> and <strong>Swift</strong>, demonstrating my versatility in handling various platforms. I have developed critical features like login/logout functionalities, chat 
          capabilities, and mentor-teacher matching systems, showcasing my ability to build robust and user-friendly applications.</p>
 
     <h1>Proficiency in Programming and Database Management</h1>
-    <p>Moreover, I am well-versed in multiple programming languages, including Python, Java, C, C++, and Swift, which has enabled me to tackle a wide range of software development challenges. 
-        My experience with database management is solid, particularly with SQL and PostgreSQL, where I have utilized these skills to test databases and write comprehensive test cases. During my internship
-         at ADA Analytics, I worked closely with the backend team to ensure the proper use of SQLAlchemy and developed specific requirements for database testing using PostgreSQL. This experience not only
+    <p>Moreover, I am well-versed in multiple programming languages, including <strong>Python</strong>, <strong>Java</strong>, <strong>C</strong>, <strong>C++</strong>, and <strong>Swift</strong>, which has enabled me to tackle a wide range of software development challenges. 
+        My experience with database management is solid, particularly with <strong>SQL</strong> and <strong>PostgreSQL</strong>, where I have utilized these skills to test databases and write comprehensive test cases. During my internship
+         at <strong>ADA Analytics</strong>, I worked closely with the backend team to ensure the proper use of <strong>SQLAlchemy</strong> and developed specific requirements for database testing using <strong>PostgreSQL</strong>. This experience not only
           enhanced my technical skills but also taught me the importance of collaborating effectively within a team to achieve project goals.</p>
+    
     <h1>Commitment to an Active and Balanced Lifestyle</h1>
-    <p>Outside of my academic and professional pursuits, I am passionate about maintaining an active lifestyle. I enjoy playing soccer on a weekly basis, which helps me stay fit and fosters teamwork
-         and strategic thinking. Additionally, I have a strong interest in weightlifting and work out five days a week. This dedication to fitness has instilled in me a sense of discipline, perseverance,
+    <p>Outside of my academic and professional pursuits, I am passionate about maintaining an active lifestyle. I enjoy playing <strong>soccer</strong> on a weekly basis, which helps me stay fit and fosters teamwork
+         and strategic thinking. Additionally, I have a strong interest in <strong>weightlifting</strong> and work out five days a week. This dedication to fitness has instilled in me a sense of discipline, perseverance,
           and resilience, qualities that I bring to both my personal and professional endeavors. These activities not only keep me physically active but also provide a balance to my intense focus on 
           academics and technology.</p>
+
     <h1>Effective Communication and Collaborative Skills</h1>
     <p>In addition to my technical and fitness pursuits, I am also committed to maintaining a collaborative, supportive, and positive work environment. My experiences in various roles, 
-        such as a File Clerk and Chat Helpline Support at Western University, have honed my communication skills and my ability to work well under pressure. I am fluent in both English and Arabic, 
+        such as a <strong>File Clerk</strong> and <strong>Chat Helpline Support</strong> at Western University, have honed my communication skills and my ability to work well under pressure. I am fluent in both <strong>English</strong> and <strong>Arabic</strong>, 
         which allows me to connect with a diverse range of people. My attention to detail, reliability, and adaptability have consistently been strengths in every role I take on. 
         Looking forward, I am excited to continue my journey in computer science, blending my technical expertise with my commitment to collaboration, to contribute meaningfully to the field of
-         web development and machine learning.</p>
+         <strong>data development</strong> and <strong>machine learning</strong>.</p>
 </div>
+
+<script type="module">
+    import { animateAboutPage } from '/scripts/animations.js';
+    animateAboutPage();  
+</script>
+
 <%- include('partials/footer') %>

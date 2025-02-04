@@ -3,11 +3,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js'; 
 import adminRouter from './routes/admin.js';
+import pool from './db/db.js';
+
 
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -17,8 +20,15 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use('/', adminRouter);
 
-app.get('/', (req, res) => {
-    res.render('index');
+app.get('/', async (req, res) => {
+    try {
+        const result = await pool.query ('SELECT * FROM projects');
+        res.render('index', {projects: result.rows});
+    }
+    catch(err) {
+        console.error("Eror", err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.get('/about', (req, res) => {

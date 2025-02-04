@@ -1,26 +1,91 @@
+<!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&family=Neonderthaw&display=swap" rel="stylesheet">
+
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Rawad</a>
+    <a class="navbar-brand bilbo-swash-caps-regular" href="#">Rawad</a> <!-- Apply Bilbo Swash Caps to Brand -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link nav-hover" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/projects">Projects</a>
+                <a class="nav-link nav-hover" href="/projects">Projects</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
+                <a class="nav-link nav-hover" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link nav-hover" href="/contact">Contact</a>
             </li>
         </ul>
     </div>
 </nav>
+
+<!-- Bootstrap & jQuery Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    /* Bilbo Swash Caps Font for Navbar Brand */
+    .bilbo-swash-caps-regular {
+        font-family: "Bilbo Swash Caps", cursive;
+        font-weight: 400;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    /* Navbar Link Styling */
+    .nav-link {
+        position: relative;
+        font-family: 'Neonderthaw', cursive;
+        font-size: 1.3rem;
+        color: #333;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Hover Effect with Fancy Box */
+    .nav-hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: black;
+        z-index: -1;
+        transition: width 0.4s ease-in-out;
+        border-radius: 5px; /* Rounded corners for the hover box */
+    }
+
+    /* On Hover: Expand Black Background */
+    .nav-hover:hover::before {
+        width: 100%;
+    }
+
+    /* On Hover: Change Text Color */
+    .nav-hover:hover {
+        color: white;
+    }
+
+    /* Navbar Background */
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navbar Brand Hover Effect */
+    .navbar-brand:hover {
+        color: #007bff;
+        transition: color 0.3s ease-in-out;
+    }
+</style>
