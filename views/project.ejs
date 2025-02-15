@@ -4,23 +4,24 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
+            
+            <!-- Video (Appears First if Available) -->
+            <% if (project.video_url) { %>
+            <div class="video-container mb-4">
+                <video class="d-block w-100" controls>
+                    <source src="<%= project.video_url %>" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <% } %>
+
             <!-- Project Carousel -->
             <div id="projectCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     
-                    <!-- Video (if available, it appears first) -->
-                    <% if (project.video_url) { %>
-                    <div class="carousel-item active">
-                        <video class="d-block w-100" controls>
-                            <source src="<%= project.video_url %>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <% } %>
-                    
-                    <!-- Background Image (if no video, this will be active) -->
+                    <!-- Background Image (if available) -->
                     <% if (project.background_img) { %>
-                    <div class="carousel-item <%= project.video_url ? '' : 'active' %>">
+                    <div class="carousel-item active">
                         <img src="<%= project.background_img %>" class="d-block w-100" alt="Project Background">
                     </div>
                     <% } %>
@@ -96,7 +97,8 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
