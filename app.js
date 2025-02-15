@@ -22,7 +22,7 @@ app.use('/', adminRouter);
 
 app.get('/', async (req, res) => {
     try {
-        const result = await pool.query ('SELECT * FROM projects');
+        const result = await pool.query ('SELECT * FROM projects ORDER BY id DESC');
         res.render('index', {projects: result.rows});
     }
     catch(err) {
