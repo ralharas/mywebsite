@@ -1,48 +1,92 @@
 <%- include('partials/header') %>
-<h1>Edit Project</h1>
-<form action="/admin/edit/<%= project.id %>" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="existing_background_img" value="<%= project.background_img %>">
-    <input type="hidden" name="existing_img2" value="<%= project.img2 %>">
-    <input type="hidden" name="existing_img3" value="<%= project.img3 %>">
-    <input type="hidden" name="existing_img4" value="<%= project.img4 %>">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Edit Project</h1>
+    <form action="/admin/edit/<%= project.id %>" method="POST" enctype="multipart/form-data" class="p-4 bg-light shadow rounded">
+        <input type="hidden" name="existing_background_img" value="<%= project.background_img %>">
+        <input type="hidden" name="existing_img2" value="<%= project.img2 %>">
+        <input type="hidden" name="existing_img3" value="<%= project.img3 %>">
+        <input type="hidden" name="existing_img4" value="<%= project.img4 %>">
 
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" value="<%= project.title %>" required><br>
+        <div class="mb-3">
+            <label for="title" class="form-label fw-bold">Project Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= project.title %>" required>
+        </div>
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required><%= project.description %></textarea><br>
+        <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required><%= project.description %></textarea>
+        </div>
 
-    <label for="github_link">GitHub Link:</label>
-    <input type="url" id="github_link" name="github_link" value="<%= project.github_link %>"><br>
+        <div class="mb-3">
+            <label for="github_link" class="form-label fw-bold">GitHub Link</label>
+            <input type="url" class="form-control" id="github_link" name="github_link" value="<%= project.github_link %>">
+        </div>
 
-    <label for="live_demo">Live Demo:</label>
-    <input type="url" id="live_demo" name="live_demo" value="<%= project.live_demo %>"><br>
+        <div class="mb-3">
+            <label for="live_demo" class="form-label fw-bold">Live Demo</label>
+            <input type="url" class="form-control" id="live_demo" name="live_demo" value="<%= project.live_demo %>">
+        </div>
 
-    <label for="background_img">Background Image:</label>
-    <input type="file" id="background_img" name="background_img"><br>
-    Current Image: <img src="<%= project.background_img %>" alt="Current Background" width="100"><br>
+        <div class="mb-3">
+            <label for="video_url" class="form-label fw-bold">Video URL</label>
+            <input type="url" class="form-control" id="video_url" name="video_url" value="<%= project.video_url %>">
+        </div>
 
-    <label for="img2">Image 2:</label>
-    <input type="file" id="img2" name="img2"><br>
-    Current Image: <img src="<%= project.img2 %>" alt="Current Image 2" width="100"><br>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Background Image</label>
+                <input type="file" class="form-control" id="background_img" name="background_img">
+                <div class="mt-2">
+                    <img src="<%= project.background_img %>" class="img-thumbnail" width="150">
+                </div>
+            </div>
 
-    <label for="img3">Image 3:</label>
-    <input type="file" id="img3" name="img3"><br>
-    Current Image: <img src="<%= project.img3 %>" alt="Current Image 3" width="100"><br>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Image 2</label>
+                <input type="file" class="form-control" id="img2" name="img2">
+                <div class="mt-2">
+                    <img src="<%= project.img2 %>" class="img-thumbnail" width="150">
+                </div>
+            </div>
 
-    <label for="img4">Image 4:</label>
-    <input type="file" id="img4" name="img4"><br>
-    Current Image: <img src="<%= project.img4 %>" alt="Current Image 4" width="100"><br>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Image 3</label>
+                <input type="file" class="form-control" id="img3" name="img3">
+                <div class="mt-2">
+                    <img src="<%= project.img3 %>" class="img-thumbnail" width="150">
+                </div>
+            </div>
 
-    <label for="walkthrough_step1">Walkthrough Step 1:</label>
-    <input type="text" id="walkthrough_step1" name="walkthrough_step1" value="<%= project.walkthrough_step1 %>"><br>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Image 4</label>
+                <input type="file" class="form-control" id="img4" name="img4">
+                <div class="mt-2">
+                    <img src="<%= project.img4 %>" class="img-thumbnail" width="150">
+                </div>
+            </div>
+        </div>
 
-    <label for="walkthrough_step2">Walkthrough Step 2:</label>
-    <input type="text" id="walkthrough_step2" name="walkthrough_step2" value="<%= project.walkthrough_step2 %>"><br>
+        <hr class="my-4">
 
-    <label for="walkthrough_step3">Walkthrough Step 3:</label>
-    <input type="text" id="walkthrough_step3" name="walkthrough_step3" value="<%= project.walkthrough_step3 %>"><br>
+        <h4 class="mb-3">Walkthrough Steps</h4>
+        <div class="mb-3">
+            <label for="walkthrough_step1" class="form-label">Step 1</label>
+            <input type="text" class="form-control" id="walkthrough_step1" name="walkthrough_step1" value="<%= project.walkthrough_step1 %>">
+        </div>
 
-    <button type="submit">Update Project</button>
-</form>
+        <div class="mb-3">
+            <label for="walkthrough_step2" class="form-label">Step 2</label>
+            <input type="text" class="form-control" id="walkthrough_step2" name="walkthrough_step2" value="<%= project.walkthrough_step2 %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="walkthrough_step3" class="form-label">Step 3</label>
+            <input type="text" class="form-control" id="walkthrough_step3" name="walkthrough_step3" value="<%= project.walkthrough_step3 %>">
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Update Project</button>
+        </div>
+    </form>
+</div>
 <%- include('partials/footer') %>

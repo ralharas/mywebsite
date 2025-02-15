@@ -89,7 +89,7 @@ router.get('/admin/edit/:id', adminAuth, async (req, res) => {
 
 router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
     const { id } = req.params;
-    const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+    const { title, description, github_link, live_demo, video_url, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
     const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : req.body.existing_background_img;
     const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : req.body.existing_img2;
     const img3 = req.files['img3'] ? `/uploads/${req.files['img3'][0].filename}` : req.body.existing_img3;
@@ -97,8 +97,8 @@ router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img
 
     try {
         await db.query(
-            'UPDATE projects SET title = $1, description = $2, github_link = $3, live_demo = $4, background_img = $5, img2 = $6, img3 = $7, img4 = $8, walkthrough_step1 = $9, walkthrough_step2 = $10, walkthrough_step3 = $11 WHERE id = $12',
-            [title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3, id]
+            `UPDATE projects SET title = $1, description = $2, github_link = $3, live_demo = $4, video_url = $5, background_img = $6, img2 = $7, img3 = $8, img4 = $9, walkthrough_step1 = $10, walkthrough_step2 = $11, walkthrough_step3 = $12 WHERE id = $13`,
+            [title, description, github_link, live_demo, video_url, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3, id]
         );
         res.send('Project updated successfully!');
     } catch (err) {
@@ -106,5 +106,6 @@ router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img
         res.status(500).send('Error updating project in the database');
     }
 });
+
 
 export default router;
