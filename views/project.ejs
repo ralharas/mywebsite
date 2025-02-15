@@ -4,18 +4,31 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
+            <!-- Project Title -->
+            <h1 class="fw-bold"><%= project.title %></h1>
             
-            <!-- Video (Appears First if Available) -->
-            <% if (project.video_url) { %>
-            <div class="video-container mb-4">
+            <!-- Project Description -->
+            <p class="lead"><%- project.description.replace(/\n/g, '<br>') %></p>
+        </div>
+    </div>
+
+    <!-- Video (if available, it appears AFTER description) -->
+    <% if (project.video_url) { %>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="video-container">
                 <video class="d-block w-100" controls>
                     <source src="<%= project.video_url %>" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <% } %>
+        </div>
+    </div>
+    <% } %>
 
-            <!-- Project Carousel -->
+    <!-- Project Carousel -->
+    <div class="row mt-5">
+        <div class="col-md-12">
             <div id="projectCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     
@@ -57,42 +70,20 @@
         </div>
     </div>
 
-    <!-- Project Details -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <h1><%= project.title %></h1>
-            <p><%- project.description.replace(/\n/g, '<br>') %></p>
-            <a href="<%= project.github_link %>" class="btn btn-primary">View code on GitHub</a>
-            <a href="<%= project.live_demo %>" class="btn btn-secondary">View live demo</a>
-        </div>
-    </div>
-
-    <!-- Thumbnails for Additional Images -->
-    <div class="row mt-5">
-        <% if (project.img2) { %>
-        <div class="col-md-4">
-            <img src="<%= project.img2 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="1" alt="Project Image">
-        </div>
-        <% } %>
-        <% if (project.img3) { %>
-        <div class="col-md-4">
-            <img src="<%= project.img3 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="2" alt="Project Image">
-        </div>
-        <% } %>
-        <% if (project.img4) { %>
-        <div class="col-md-4">
-            <img src="<%= project.img4 %>" class="img-fluid clickable-image" data-target="#projectCarousel" data-slide-to="3" alt="Project Image">
-        </div>
-        <% } %>
-    </div>
-
+    <!-- Walkthrough Steps -->
     <div class="row mt-5">
         <div class="col-md-12">
             <h3>Walkthrough</h3>
             <ul class="list-group">
+                <% if (project.walkthrough_step1) { %>
                 <li class="list-group-item"><strong>Step 1:</strong> <%= project.walkthrough_step1 %></li>
+                <% } %>
+                <% if (project.walkthrough_step2) { %>
                 <li class="list-group-item"><strong>Step 2:</strong> <%= project.walkthrough_step2 %></li>
+                <% } %>
+                <% if (project.walkthrough_step3) { %>
                 <li class="list-group-item"><strong>Step 3:</strong> <%= project.walkthrough_step3 %></li>
+                <% } %>
             </ul>
         </div>
     </div>
