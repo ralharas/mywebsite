@@ -39,7 +39,9 @@ router.get('/admin', adminAuth, (req, res) => {
 
 
 router.post('/admin', adminAuth, async (req, res) => {
-    const { title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+    const { title, description, github_link, live_demo, video_url, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+
+    const videoUrl = video_url || null;
     const backgroundImageUrl = background_img || null;
     const image2Url = img2 || null;
     const image3Url = img3 || null;
@@ -47,8 +49,9 @@ router.post('/admin', adminAuth, async (req, res) => {
 
     try {
         await db.query(
-            'INSERT INTO projects (title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-            [title, description, github_link, live_demo, backgroundImageUrl, image2Url, image3Url, image4Url, walkthrough_step1, walkthrough_step2, walkthrough_step3]
+            `INSERT INTO projects (title, description, github_link, live_demo, video_url, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+            [title, description, github_link, live_demo, videoUrl, backgroundImageUrl, image2Url, image3Url, image4Url, walkthrough_step1, walkthrough_step2, walkthrough_step3]
         );
         res.send('Project added successfully!');
     } catch (err) {
@@ -56,6 +59,7 @@ router.post('/admin', adminAuth, async (req, res) => {
         res.status(500).send('Error adding project to the database');
     }
 });
+
 
 
 router.get('/admin/edit', adminAuth, async (req, res) => {
