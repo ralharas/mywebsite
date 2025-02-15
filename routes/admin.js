@@ -1,9 +1,8 @@
 import express from 'express';
 import multer from 'multer';
-import db from '../db/db.js'; 
+import db from '../db/db.js';
 
 const router = express.Router();
-
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,33 +13,21 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }); 
+const upload = multer({ storage: storage });
 
-function adminAuth(req, res, next) {
-    const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
-
-    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
-    
-    if (login && password && login === auth.login && password === auth.password) {
-        req.isAuthenticated = true;  
-        req.user = { isAdmin: true }; 
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
         return next();
-    } else {
-        res.set('WWW-Authenticate', 'Basic realm="401"'); 
-        return res.status(401).send('Authentication required.');
     }
+    res.redirect('/admin/login');
 }
 
-
-router.get('/admin', adminAuth, (req, res) => {
-    res.render('admin'); 
+router.get('/admin', isAuthenticated, (req, res) => {
+    res.render('admin');
 });
 
-
-router.post('/admin', adminAuth, async (req, res) => {
+router.post('/admin', isAuthenticated, async (req, res) => {
     const { title, description, github_link, live_demo, video_url, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
-
     const videoUrl = video_url || null;
     const backgroundImageUrl = background_img || null;
     const image2Url = img2 || null;
@@ -55,54 +42,51 @@ router.post('/admin', adminAuth, async (req, res) => {
         );
         res.send('Project added successfully!');
     } catch (err) {
-        console.error('Error adding project:', err);
         res.status(500).send('Error adding project to the database');
     }
 });
 
-
-
-router.get('/admin/edit', adminAuth, async (req, res) => {
+router.get('/admin/edit', isAuthenticated, async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
-        res.render('admin_project', { projects: result.rows, isAdmin: true }); 
+        res.render('admin_project', { projects: result.rows, isAdmin: true });
     } catch (err) {
-        console.error(err);
         res.status(500).send('Error fetching projects');
     }
 });
 
-router.get('/admin/edit/:id', adminAuth, async (req, res) => {
+router.get('/admin/edit/:id', isAuthenticated, async (req, res) => {
     const { id } = req.params;
     try {
         const result = await db.query('SELECT * FROM projects WHERE id = $1', [id]);
         if (result.rows.length > 0) {
-            res.render('edit', { project: result.rows[0] }); 
+            res.render('edit', { project: result.rows[0] });
         } else {
             res.status(404).send('Project not found');
         }
     } catch (err) {
-        console.error(err);
         res.status(500).send('Error fetching project details');
     }
 });
 
-router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
+router.post('/admin/edit/:id', isAuthenticated, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
     const { id } = req.params;
-    const { title, description, github_link, live_demo, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
+    const { title, description, github_link, live_demo, video_url, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
     const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : req.body.existing_background_img;
     const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : req.body.existing_img2;
     const img3 = req.files['img3'] ? `/uploads/${req.files['img3'][0].filename}` : req.body.existing_img3;
     const img4 = req.files['img4'] ? `/uploads/${req.files['img4'][0].filename}` : req.body.existing_img4;
+    const videoUrl = video_url || req.body.existing_video_url;
 
     try {
         await db.query(
-            'UPDATE projects SET title = $1, description = $2, github_link = $3, live_demo = $4, background_img = $5, img2 = $6, img3 = $7, img4 = $8, walkthrough_step1 = $9, walkthrough_step2 = $10, walkthrough_step3 = $11 WHERE id = $12',
-            [title, description, github_link, live_demo, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3, id]
+            `UPDATE projects 
+             SET title = $1, description = $2, github_link = $3, live_demo = $4, video_url = $5, background_img = $6, img2 = $7, img3 = $8, img4 = $9, walkthrough_step1 = $10, walkthrough_step2 = $11, walkthrough_step3 = $12 
+             WHERE id = $13`,
+            [title, description, github_link, live_demo, videoUrl, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3, id]
         );
         res.send('Project updated successfully!');
     } catch (err) {
-        console.error(err);
         res.status(500).send('Error updating project in the database');
     }
 });
