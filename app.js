@@ -22,11 +22,12 @@ app.use('/', adminRouter);
 
 app.get('/', async (req, res) => {
     try {
-        const result = await db.query('SELECT * FROM projects ORDER BY created_at DESC');
-        res.render('index', { projects: result.rows });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error fetching projects');
+        const result = await pool.query ('SELECT * FROM projects ORDER BY created_at DESC');
+        res.render('index', {projects: result.rows});
+    }
+    catch(err) {
+        console.error("Eror", err);
+        res.status(500).send('Internal Server Error');
     }
 });
 
