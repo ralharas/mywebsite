@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <!-- Video (if available, it appears AFTER description) -->
+    <!-- Video (if available, appears AFTER description) -->
     <% if (project.video_url) { %>
     <div class="row mt-4">
         <div class="col-md-12">
@@ -70,6 +70,25 @@
         </div>
     </div>
 
+    <!-- Thumbnail Navigation Below Carousel -->
+    <div class="container mt-4">
+        <h5 class="text-center fw-bold">Image Previews</h5>
+        <div class="d-flex justify-content-center">
+            <% if (project.background_img) { %>
+                <img src="<%= project.background_img %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="0" alt="Thumbnail">
+            <% } %>
+            <% if (project.img2) { %>
+                <img src="<%= project.img2 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="1" alt="Thumbnail">
+            <% } %>
+            <% if (project.img3) { %>
+                <img src="<%= project.img3 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="2" alt="Thumbnail">
+            <% } %>
+            <% if (project.img4) { %>
+                <img src="<%= project.img4 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="3" alt="Thumbnail">
+            <% } %>
+        </div>
+    </div>
+
     <!-- Walkthrough Steps -->
     <div class="row mt-5">
         <div class="col-md-12">
@@ -95,12 +114,25 @@
 
 <script>
 $(document).ready(function () {
-    $('.clickable-image[data-slide-to="0"]').addClass('selected-image');
-    $('#projectCarousel').on('slide.bs.carousel', function (e) {
-        $('.clickable-image').removeClass('selected-image');
-        $('.clickable-image[data-slide-to="' + $(e.relatedTarget).index() + '"]').addClass('selected-image');
+    $('.clickable-thumbnail').on('click', function() {
+        const slideIndex = $(this).attr('data-slide-to');
+        $('#projectCarousel').carousel(parseInt(slideIndex));
     });
 });
 </script>
 
 <%- include('partials/footer') %>
+
+<style>
+    .clickable-thumbnail {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .clickable-thumbnail:hover {
+        transform: scale(1.2);
+    }
+</style>
