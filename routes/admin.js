@@ -87,13 +87,9 @@ router.get('/admin/edit/:id', adminAuth, async (req, res) => {
     }
 });
 
-router.post('/admin/edit/:id', adminAuth, upload.fields([{ name: 'background_img' }, { name: 'img2' }, { name: 'img3' }, { name: 'img4' }]), async (req, res) => {
+router.post('/admin/edit/:id', adminAuth, async (req, res) => {
     const { id } = req.params;
-    const { title, description, github_link, live_demo, video_url, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
-    const background_img = req.files['background_img'] ? `/uploads/${req.files['background_img'][0].filename}` : req.body.existing_background_img;
-    const img2 = req.files['img2'] ? `/uploads/${req.files['img2'][0].filename}` : req.body.existing_img2;
-    const img3 = req.files['img3'] ? `/uploads/${req.files['img3'][0].filename}` : req.body.existing_img3;
-    const img4 = req.files['img4'] ? `/uploads/${req.files['img4'][0].filename}` : req.body.existing_img4;
+    const { title, description, github_link, live_demo, video_url, background_img, img2, img3, img4, walkthrough_step1, walkthrough_step2, walkthrough_step3 } = req.body;
 
     try {
         await db.query(
