@@ -52,16 +52,20 @@ export const animateAboutPage = () => {
     const headings = document.querySelectorAll('h1');
     const paragraphs = document.querySelectorAll('p');
 
+    gsap.set(headings, { opacity: 1 }); // Ensure headings are visible initially
+    gsap.set(paragraphs, { opacity: 1 });
+
     headings.forEach((heading, index) => {
         gsap.from(heading, {
             scrollTrigger: {
                 trigger: heading,
-                start: 'top 80%',
+                start: 'top 90%', // Trigger slightly earlier
+                toggleActions: "play none none none",
             },
             opacity: 0,
-            x: -50,
-            duration: 1.5,
-            delay: index * 0.2,
+            x: -30, // Reduced movement for a smoother effect
+            duration: 2, // Slower animation for a more natural feel
+            delay: index * 0.1, // Reduced delay for faster rendering
             ease: 'power3.out'
         });
     });
@@ -70,12 +74,13 @@ export const animateAboutPage = () => {
         gsap.from(paragraph, {
             scrollTrigger: {
                 trigger: paragraph,
-                start: 'top 85%',
+                start: 'top 95%', // Trigger animation a bit earlier
+                toggleActions: "play none none none",
             },
             opacity: 0,
-            y: 30,
-            duration: 1.5,
-            delay: index * 0.3,
+            y: 20, // Less movement for a more fluid transition
+            duration: 2, // Smoother effect
+            delay: index * 0.15,
             ease: 'power2.out'
         });
     });
@@ -86,34 +91,38 @@ export const animateProjectsPage = () => {
     const projectSections = document.querySelectorAll('.about-section');
 
     if (projectSections.length > 0) {
+        gsap.set(projectSections, { opacity: 1 }); // Ensure sections are visible initially
+
         projectSections.forEach((section, index) => {
             const text = section.querySelector('.about-text');
             const image = section.querySelector('.about-image');
 
             if (text && image) {
-                const direction = index % 2 === 0 ? -100 : 100;
+                const direction = index % 2 === 0 ? -50 : 50; // Reduced distance for a smoother look
 
                 gsap.from(text, {
                     scrollTrigger: {
                         trigger: section,
-                        start: 'top 80%',
+                        start: 'top 85%', // Animation starts slightly sooner
+                        toggleActions: "play none none none",
                     },
                     opacity: 0,
                     x: direction,
                     duration: 2.5,
-                    delay: index * 0.4,
+                    delay: index * 0.2, // Faster appearance to prevent blank screen
                     ease: 'expo.out',
                 });
 
                 gsap.from(image, {
                     scrollTrigger: {
                         trigger: section,
-                        start: 'top 80%',
+                        start: 'top 85%',
+                        toggleActions: "play none none none",
                     },
                     opacity: 0,
                     x: -direction,
-                    duration: 5,
-                    delay: index * 0.4,
+                    duration: 2.5, // Shortened duration for better pacing
+                    delay: index * 0.2,
                     ease: 'expo.out',
                 });
             }
