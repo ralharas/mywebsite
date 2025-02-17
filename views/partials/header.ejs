@@ -15,16 +15,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/">HOME</a>
+                <a class="nav-link nav-hover" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/projects">PROJECTS</a>
+                <a class="nav-link nav-hover" href="/projects">Projects</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/about">ABOUT</a>
+                <a class="nav-link nav-hover" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/contact">CONTACT</a>
+                <a class="nav-link nav-hover" href="/contact">Contact</a>
             </li>
         </ul>
     </div>
@@ -36,33 +36,32 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-    /* Force Bilbo Swash Caps across all pages */
-    body, .navbar, .nav-link, .bilbo-swash-caps-bold {
+    /* ✅ Restrict font to only navbar elements */
+    .navbar, .navbar-brand, .nav-link {
         font-family: "Bilbo Swash Caps", cursive !important;
         font-weight: 700 !important;
     }
 
-    /* Navbar Brand */
-    .bilbo-swash-caps-bold {
+    /* Navbar Brand - RAWAD (Fully Capitalized) */
+    .navbar-brand {
         font-size: 2.5rem;
         color: #222;
         letter-spacing: 2px;
         text-transform: uppercase;
     }
 
-    /* Navbar Link Styling */
+    /* Navbar Link Styling - Title Case (Home, Projects, About, Contact) */
     .nav-link {
-        position: relative;
         font-size: 1.4rem;
-        text-transform: uppercase;
         color: #222;
         padding: 10px 20px;
         transition: all 0.3s ease-in-out;
         letter-spacing: 1px;
+        text-transform: capitalize; /* Keeps "Home" instead of "HOME" */
         display: block;
     }
 
-    /* Black box hover effect */
+    /* Black Box Hover Effect */
     .nav-hover {
         position: relative;
         display: inline-block;
@@ -84,6 +83,7 @@
         border-radius: 5px;
     }
 
+    /* Hover Effect */
     .nav-hover:hover::before {
         transform: scaleX(1);
     }
@@ -92,20 +92,7 @@
         color: white;
     }
 
-    .nav-hover:active::before {
-        transform: scaleX(1);
-    }
-
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-brand:hover {
-        color: #007bff;
-        transition: color 0.3s ease-in-out;
-    }
-
-    /* Mobile Fix */
+    /* Fix for Mobile Users (Ensuring Proper Click Effect) */
     @media (max-width: 992px) {
         .nav-hover {
             display: block;
@@ -117,5 +104,15 @@
             transform: scaleX(1);
             border-radius: 0;
         }
+    }
+
+    /* Navbar Background */
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand:hover {
+        color: #007bff;
+        transition: color 0.3s ease-in-out;
     }
 </style>
