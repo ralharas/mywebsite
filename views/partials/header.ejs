@@ -36,7 +36,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-    /* Bilbo Swash Caps Bold Font for Navbar Brand */
+    /* Navbar Brand Styling (RAWAD) */
     .bilbo-swash-caps-bold {
         font-family: "Bilbo Swash Caps", cursive;
         font-weight: 700;
@@ -50,21 +50,22 @@
     .nav-link {
         position: relative;
         font-family: "Bilbo Swash Caps", cursive;
-        font-weight: 700;
+        font-weight: 700; /* Ensuring true boldness */
         font-size: 1.4rem;
         text-transform: uppercase;
-        color: #222;
-        padding: 10px 20px;
+        color: #222; /* Darker text color */
+        padding: 15px 20px; /* Ensures proper spacing */
         transition: all 0.3s ease-in-out;
         letter-spacing: 1px;
-        display: block; /* Ensures the whole area is clickable */
+        display: inline-block; /* Prevents weird spacing */
+        text-align: center;
     }
 
-    /* Black box hover effect */
+    /* Black Box Hover Effect */
     .nav-hover {
         position: relative;
         display: inline-block;
-        padding: 10px 20px;
+        padding: 15px 20px;
     }
 
     .nav-hover::before {
@@ -75,33 +76,24 @@
         width: 100%;
         height: 100%;
         background-color: black;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease-in-out;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        transform: scale(1.1); /* Ensures full coverage */
         z-index: -1;
         border-radius: 5px;
     }
 
+    /* Hover Effect */
     .nav-hover:hover::before {
-        transform: scaleX(1);
+        opacity: 1;
+        transform: scale(1);
     }
 
     .nav-hover:hover {
         color: white;
     }
 
-
-    .nav-hover:active::before {
-        transform: scaleX(1);
-    }
-
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .navbar-brand:hover {
-        color: #007bff;
-        transition: color 0.3s ease-in-out;
-    }
+    /* Fix for Mobile Users (Ensuring Proper Click Effect) */
     @media (max-width: 992px) {
         .nav-hover {
             display: block;
@@ -110,8 +102,19 @@
         }
 
         .nav-hover::before {
-            transform: scaleX(1);
+            transform: scale(1);
             border-radius: 0;
         }
+    }
+
+    /* Navbar Background */
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navbar Brand Hover Effect */
+    .navbar-brand:hover {
+        color: #007bff;
+        transition: color 0.3s ease-in-out;
     }
 </style>
