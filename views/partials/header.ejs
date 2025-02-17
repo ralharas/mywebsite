@@ -1,111 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rawad's Portfolio</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&family=Neonderthaw&display=swap" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand bilbo-swash-caps-regular" href="#">Rawad</a> <!-- Apply Bilbo Swash Caps to Brand -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link nav-hover" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-hover" href="/projects">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-hover" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-hover" href="/contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <!-- ✅ All CSS Inside the EJS File -->
-    <style>
-        /* Ensure the Navbar Elements Use the Correct Font */
-        #custom-navbar .navbar-brand, 
-        #custom-navbar .nav-link {
-            font-family: "Bilbo Swash Caps", cursive !important;
-            font-weight: 700 !important;
-            color: black !important; /* Ensures contrast */
-        }
-    
-        /* Ensure Navbar Links Are Not Affected by Other Styles */
-        #custom-navbar .nav-link {
-            font-size: 1.4rem !important;
-            padding: 10px 20px !important;
-            transition: all 0.3s ease-in-out !important;
-            letter-spacing: 1px !important;
-            text-transform: capitalize !important; /* Keeps 'Home' instead of 'HOME' */
-            display: block !important;
-        }
-    
-        /* Black Box Hover Effect */
-        #custom-navbar .nav-hover {
-            position: relative !important;
-            display: inline-block !important;
-            padding: 10px 20px !important;
-        }
-    
-        #custom-navbar .nav-hover::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            background-color: black !important;
-            transform: scaleX(0) !important;
-            transform-origin: left !important;
-            transition: transform 0.3s ease-in-out !important;
-            z-index: -1 !important;
-            border-radius: 5px !important;
-        }
-    
-        #custom-navbar .nav-hover:hover::before {
-            transform: scaleX(1) !important;
-        }
-    
-        #custom-navbar .nav-hover:hover {
-            color: white !important;
-        }
-    
-        /* Fix for Mobile Users */
-        @media (max-width: 992px) {
-            #custom-navbar .nav-hover {
-                display: block !important;
-                width: 100% !important;
-                text-align: center !important;
-            }
-    
-            #custom-navbar .nav-hover::before {
-                transform: scaleX(1) !important;
-                border-radius: 0 !important;
-            }
-        }
-    </style>
+<!-- Bootstrap & jQuery Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Navbar -->
-    <nav id="custom-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">RAWAD</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link nav-hover" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-hover" href="/projects">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-hover" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-hover" href="/contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<style>
+    /* Bilbo Swash Caps Font for Navbar Brand */
+    .bilbo-swash-caps-regular {
+        font-family: "Bilbo Swash Caps", cursive;
+        font-weight: 400;
+        font-size: 2rem;
+        color: #333;
+    }
 
-    <!-- Bootstrap & jQuery Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    /* Navbar Link Styling */
+    .nav-link {
+        position: relative;
+        font-family: 'Neonderthaw', cursive;
+        font-size: 1.3rem;
+        color: #333;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+    }
 
-</body>
-</html>
+    /* Hover Effect with Fancy Box */
+    .nav-hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: black;
+        z-index: -1;
+        transition: width 0.4s ease-in-out;
+        border-radius: 5px; /* Rounded corners for the hover box */
+    }
+
+    /* On Hover: Expand Black Background */
+    .nav-hover:hover::before {
+        width: 100%;
+    }
+
+    /* On Hover: Change Text Color */
+    .nav-hover:hover {
+        color: rgb(10, 10, 10);
+    }
+
+    /* Navbar Background */
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navbar Brand Hover Effect */
+    .navbar-brand:hover {
+        color: #007bff;
+        transition: color 0.3s ease-in-out;
+    }
+</style>
