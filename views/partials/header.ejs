@@ -15,16 +15,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/">Home</a>
+                <a class="nav-link nav-hover" href="/">HOME</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/projects">Projects</a>
+                <a class="nav-link nav-hover" href="/projects">PROJECTS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/about">About</a>
+                <a class="nav-link nav-hover" href="/about">ABOUT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-hover" href="/contact">Contact</a>
+                <a class="nav-link nav-hover" href="/contact">CONTACT</a>
             </li>
         </ul>
     </div>
@@ -36,9 +36,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-    /* Navbar Brand Styling (RAWAD) */
+    /* Force Bilbo Swash Caps across all pages */
+    body, .navbar, .nav-link, .bilbo-swash-caps-bold {
+        font-family: "Bilbo Swash Caps", cursive !important;
+        font-weight: 700 !important;
+    }
+
+    /* Navbar Brand */
     .bilbo-swash-caps-bold {
-        font-weight: 700;
         font-size: 2.5rem;
         color: #222;
         letter-spacing: 2px;
@@ -48,22 +53,20 @@
     /* Navbar Link Styling */
     .nav-link {
         position: relative;
-        font-weight: 700; /* Ensuring true boldness */
         font-size: 1.4rem;
         text-transform: uppercase;
-        color: #222; /* Darker text color */
-        padding: 15px 20px; /* Ensures proper spacing */
+        color: #222;
+        padding: 10px 20px;
         transition: all 0.3s ease-in-out;
         letter-spacing: 1px;
-        display: inline-block; /* Prevents weird spacing */
-        text-align: center;
+        display: block;
     }
 
-    /* Black Box Hover Effect */
+    /* Black box hover effect */
     .nav-hover {
         position: relative;
         display: inline-block;
-        padding: 15px 20px;
+        padding: 10px 20px;
     }
 
     .nav-hover::before {
@@ -74,24 +77,35 @@
         width: 100%;
         height: 100%;
         background-color: black;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        transform: scale(1.1); /* Ensures full coverage */
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
         z-index: -1;
         border-radius: 5px;
     }
 
-    /* Hover Effect */
     .nav-hover:hover::before {
-        opacity: 1;
-        transform: scale(1);
+        transform: scaleX(1);
     }
 
     .nav-hover:hover {
         color: white;
     }
 
-    /* Fix for Mobile Users (Ensuring Proper Click Effect) */
+    .nav-hover:active::before {
+        transform: scaleX(1);
+    }
+
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand:hover {
+        color: #007bff;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* Mobile Fix */
     @media (max-width: 992px) {
         .nav-hover {
             display: block;
@@ -100,19 +114,8 @@
         }
 
         .nav-hover::before {
-            transform: scale(1);
+            transform: scaleX(1);
             border-radius: 0;
         }
-    }
-
-    /* Navbar Background */
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Navbar Brand Hover Effect */
-    .navbar-brand:hover {
-        color: #007bff;
-        transition: color 0.3s ease-in-out;
     }
 </style>
