@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js'; 
 import adminRouter from './routes/admin.js';
 import pool from './db/db.js';
+import session from 'express-session';
 
 
 const app = express();
@@ -16,6 +17,14 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: { maxAge: 20 * 60 * 1000 }
+  }));
+  
 
 app.use('/', indexRouter);
 app.use('/', adminRouter);

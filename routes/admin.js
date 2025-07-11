@@ -17,20 +17,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }); 
 
 function adminAuth(req, res, next) {
-    const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD }; 
-
-    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
-    
-    if (login && password && login === auth.login && password === auth.password) {
-        req.isAuthenticated = true;  
-        req.user = { isAdmin: true }; 
-        return next();
+    if (req.session && req.session.isAdmin) {
+      return next();
     } else {
-        res.set('WWW-Authenticate', 'Basic realm="401"'); 
-        return res.status(401).send('Authentication required.');
+      res.redirect('/admin/login');
     }
-}
+  }
+  
 
 
 router.get('/admin', adminAuth, (req, res) => {
@@ -102,6 +95,29 @@ router.post('/admin/edit/:id', adminAuth, async (req, res) => {
         res.status(500).send('Error updating project in the database');
     }
 });
+
+router.get('/admin/login', (req, res) => {
+    res.render('admin_login'); 
+  });
+  
+router.post('/admin/login', (req, res) => {
+    const { login, password } = req.body;
+    const auth = { login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD };
+  
+    if (login === auth.login && password === auth.password) {
+      req.session.isAdmin = true;
+      res.redirect('/admin');
+    } else {
+      res.status(401).send('Invalid credentials');
+    }
+  });
+
+router.get('/admin/logout', (req, res) => {
+    req.session.destroy(err => {
+      res.redirect('/admin/login');
+    });
+  });
+  
 
 
 export default router;
