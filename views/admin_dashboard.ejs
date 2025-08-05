@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>
+        .logout-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Bubbles Background -->
+    <div class="bubble-container" id="bubbleContainer"></div>
+    
+    <!-- Animated Border Glow -->
+    <div class="glow-border"></div>
+    <div class="glow-border-left"></div>
+    <div class="glow-border-right"></div>
+    
+    <div class="main-container">
+        <a href="/admin/logout" class="btn logout-btn">Logout</a>
+        
+        <div class="dashboard-header">
+            <p class="welcome-text">Welcome back, <%= user.username %></p>
+            <h1 class="hero-title">Admin Dashboard</h1>
+        </div>
+        
+        <div class="dashboard-grid">
+            <% if (user.role === 'admin') { %>
+                <div class="dashboard-tile" onclick="window.location.href='/admin/projects/add'">
+                    <div class="dashboard-icon">📝</div>
+                    <h3 class="dashboard-title">Add Project</h3>
+                    <p class="dashboard-description">Create a new portfolio project</p>
+                </div>
+                
+                <div class="dashboard-tile" onclick="window.location.href='/admin/projects'">
+                    <div class="dashboard-icon">📋</div>
+                    <h3 class="dashboard-title">Manage Projects</h3>
+                    <p class="dashboard-description">Edit or remove existing projects</p>
+                </div>
+            <% } %>
+            
+            <div class="dashboard-tile" onclick="window.location.href='/admin/kanban'">
+                <div class="dashboard-icon">📊</div>
+                <h3 class="dashboard-title">Rawan's Board</h3>
+                <p class="dashboard-description">View and manage support tickets</p>
+            </div>
+            
+            <div class="dashboard-tile" onclick="window.location.href='/admin/ticket/new'">
+                <div class="dashboard-icon">🎫</div>
+                <h3 class="dashboard-title">Submit Ticket</h3>
+                <p class="dashboard-description">Create a new support ticket</p>
+            </div>
+            
+            <% if (user.role === 'admin') { %>
+                <div class="dashboard-tile" onclick="window.location.href='/admin/users'">
+                    <div class="dashboard-icon">👥</div>
+                    <h3 class="dashboard-title">Manage Users</h3>
+                    <p class="dashboard-description">Add or modify user accounts</p>
+                </div>
+                
+                <div class="dashboard-tile" onclick="window.location.href='/admin/analytics'">
+                    <div class="dashboard-icon">📈</div>
+                    <h3 class="dashboard-title">Analytics</h3>
+                    <p class="dashboard-description">View site statistics and metrics</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+    <script>
+        // Create animated bubbles
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 100 + 50;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * window.innerWidth + 'px';
+            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 30000);
+        }
+        
+        setInterval(createBubble, 2000);
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createBubble, i * 500);
+        }
+        
+        // Change border glow colors
+        const gradients = [
+            'linear-gradient(45deg, #00d4ff, #ff00ff)',
+            'linear-gradient(45deg, #ff00ff, #00ff88)',
+            'linear-gradient(45deg, #00ff88, #00d4ff)'
+        ];
+        
+        let currentGradient = 0;
+        
+        function changeGradient() {
+            currentGradient = (currentGradient + 1) % gradients.length;
+            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
+            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
+            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
+        }
+        
+        setInterval(changeGradient, 3000);
+    </script>
+</body>
+</html>

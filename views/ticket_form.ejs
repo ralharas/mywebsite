@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Ticket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>
+        .ticket-form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .back-btn {
+            margin-bottom: 2rem;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .success-message {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .error-message {
+            background: rgba(255, 0, 255, 0.2);
+            color: var(--accent-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Bubbles Background -->
+    <div class="bubble-container" id="bubbleContainer"></div>
+    
+    <!-- Animated Border Glow -->
+    <div class="glow-border"></div>
+    <div class="glow-border-left"></div>
+    <div class="glow-border-right"></div>
+    
+    <div class="main-container">
+        <div class="ticket-form-container">
+            <a href="/admin" class="btn back-btn">← Back to Dashboard</a>
+            
+            <div class="form-header">
+                <h1 class="hero-title">Submit a Ticket</h1>
+                <p class="hero-subtitle">Describe your issue and we'll help you resolve it</p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                Ticket submitted successfully! Redirecting to board...
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                Error submitting ticket. Please try again.
+            </div>
+            
+            <div class="form-card">
+                <form id="ticketForm">
+                    <div class="form-group">
+                        <label for="title" class="form-label">Ticket Title *</label>
+                        <input type="text" id="title" name="title" class="form-input" required 
+                               placeholder="Brief description of the issue">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description" class="form-label">Detailed Description</label>
+                        <textarea id="description" name="description" class="form-textarea" rows="6" 
+                                  placeholder="Provide more details about your issue..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority" class="form-label">Priority Level</label>
+                        <select id="priority" name="priority" class="form-input">
+                            <option value="low">Low - Can wait</option>
+                            <option value="medium" selected>Medium - Normal issue</option>
+                            <option value="high">High - Important</option>
+                            <option value="urgent">Urgent - Needs immediate attention</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category" class="form-label">Category</label>
+                        <select id="category" name="category" class="form-input">
+                            <option value="bug">Bug/Issue</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="question">Question</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn submit-btn">Submit Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize bubbles and gradients
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 100 + 50;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * window.innerWidth + 'px';
+            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 30000);
+        }
+        
+        setInterval(createBubble, 2000);
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createBubble, i * 500);
+        }
+        
+        // Gradient animation
+        const gradients = [
+            'linear-gradient(45deg, #00d4ff, #ff00ff)',
+            'linear-gradient(45deg, #ff00ff, #00ff88)',
+            'linear-gradient(45deg, #00ff88, #00d4ff)'
+        ];
+        
+        let currentGradient = 0;
+        
+        function changeGradient() {
+            currentGradient = (currentGradient + 1) % gradients.length;
+            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
+            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
+            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
+        }
+        
+        setInterval(changeGradient, 3000);
+        
+        // Form submission
+        document.getElementById('ticketForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const ticketData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                priority: formData.get('priority')
+            };
+            
+            try {
+                const response = await fetch('/api/kanban/tickets', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ticketData)
+                });
+                
+                if (response.ok) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/admin/kanban';
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to submit ticket');
+                }
+            } catch (error) {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+                console.error('Error submitting ticket:', error);
+            }
+        });
+    </script>
+</body>
+</html>

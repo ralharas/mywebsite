@@ -1,51 +1,52 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import ejs from 'ejs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import indexRouter from './routes/index.js'; 
-import adminRouter from './routes/admin.js';
-import pool from './db/db.js';
 import session from 'express-session';
-
+import indexRouter from './routes/index.js';
+import adminRouter from './routes/admin.js';
+import kanbanRouter from './routes/kanban.js';
 
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
-app.set('view engine', 'ejs');
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
+// Session configuration
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'your-secret-key-here',
     resave: false,
     saveUninitialized: false,
-    rolling: true,
-    cookie: { maxAge: 20 * 60 * 1000 }
-  }));
-  
+    cookie: { 
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
 
+// View engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Routes
 app.use('/', indexRouter);
 app.use('/', adminRouter);
+app.use('/', kanbanRouter);
 
-app.get('/', async (req, res) => {
-    try {
-        const result = await pool.query ('SELECT * FROM projects ORDER BY id DESC');
-        res.render('index', {projects: result.rows});
-    }
-    catch(err) {
-        console.error("Eror", err);
-        res.status(500).send('Internal Server Error');
-    }
+// Error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
-app.get('/about', (req, res) => {
-    res.render('about');
-});
-
-app.get('/contact', (req, res) => {
-    res.render('contact');
+// 404 handler
+app.use((req, res) => {
+    res.status(404).send('Page not found');
 });
 
 const PORT = process.env.PORT || 3000;

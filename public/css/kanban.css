@@ -1,0 +1,282 @@
+/* Kanban Board Styles */
+.kanban-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.kanban-title {
+    font-size: 2rem;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.kanban-board {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.kanban-column {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 8px;
+    min-width: 300px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 200px);
+}
+
+.kanban-column-header {
+    padding: 1rem;
+    border-bottom: 2px solid var(--bg-tertiary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kanban-column-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.kanban-column-count {
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.kanban-column-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.kanban-ticket {
+    background: var(--bg-tertiary);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    cursor: move;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kanban-ticket::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.kanban-ticket:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+    border-color: var(--accent-primary);
+}
+
+.kanban-ticket:hover::before {
+    opacity: 1;
+}
+
+.kanban-ticket.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+.kanban-ticket-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.kanban-ticket-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.kanban-ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kanban-ticket-priority {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.priority-low {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--accent-tertiary);
+}
+
+.priority-medium {
+    background: rgba(0, 212, 255, 0.2);
+    color: var(--accent-primary);
+}
+
+.priority-high {
+    background: rgba(255, 159, 64, 0.2);
+    color: #ff9f40;
+}
+
+.priority-urgent {
+    background: rgba(255, 0, 255, 0.2);
+    color: var(--accent-secondary);
+}
+
+.kanban-ticket-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.kanban-ticket-action {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.kanban-ticket-action:hover {
+    color: var(--accent-primary);
+}
+
+/* Add Column Button */
+.add-column-btn {
+    background: var(--bg-secondary);
+    border: 2px dashed var(--bg-tertiary);
+    border-radius: 8px;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+}
+
+.add-column-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* Drag and Drop Indicators */
+.drag-over {
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px dashed var(--accent-primary);
+}
+
+/* Ticket Form Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: var(--accent-primary);
+}
+
+/* Scrollbar Styling */
+.kanban-column-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.kanban-column-body::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.kanban-column-body::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 4px;
+}
+
+.kanban-column-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .kanban-board {
+        flex-direction: column;
+    }
+    
+    .kanban-column {
+        min-width: 100%;
+        max-height: 400px;
+    }
+}
