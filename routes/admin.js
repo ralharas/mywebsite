@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
-import db from '../db/db.js'; 
+import db from '../db/db.js';
+import bcrypt from 'bcrypt'; 
 
 const router = express.Router();
 
