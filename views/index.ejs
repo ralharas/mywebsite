@@ -38,11 +38,11 @@
             padding-right: max(env(safe-area-inset-right, 0px), 12px);
         }
         
-        /* Content container that holds hero and panels */
+        /* Content container that holds hero and panels (no navbar on homepage) */
         .content-container {
             position: relative;
-            min-height: calc(100vh - var(--nav-h));
-            margin-top: var(--nav-h); /* push below fixed nav */
+            min-height: 100vh;
+            margin-top: 0; /* no nav on homepage */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,7 +91,6 @@
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
     
-    <% include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
     <div class="main-container">
         <div class="content-container">
             <section class="hero-section">

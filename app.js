@@ -4,6 +4,7 @@ import ejs from 'ejs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
 import indexRouter from './routes/index.js';
 import adminRouter from './routes/admin.js';
 import kanbanRouter from './routes/kanban.js';
@@ -19,16 +20,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Trust proxy so secure cookies work behind Render's proxy
+app.set('trust proxy', 1);
+
 // Session configuration
-app.use(session({
+const isProd = process.env.NODE_ENV === 'production';
+const PgSession = connectPgSimple(session);
+
+const sessionOptions = {
     secret: process.env.SESSION_SECRET || 'your-secret-key-here',
     resave: false,
     saveUninitialized: false,
-    cookie: { 
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    }
-}));
+    cookie: {
+        secure: isProd,
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+};
+
+// Use Postgres-backed session store in production
+if (isProd && process.env.DATABASE_URL) {
+    sessionOptions.store = new PgSession({
+        conString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+        tableName: 'user_sessions',
+        createTableIfMissing: true,
+    });
+}
+
+app.use(session(sessionOptions));
 
 // View engine
 app.set('view engine', 'ejs');
