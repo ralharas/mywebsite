@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/css/projects.css">
     <style>
         /* Page specific styles */
+        :root { --nav-h: 70px; }
+        @media (max-width: 768px) { :root { --nav-h: 64px; } }
+        
         .hero-section {
             position: relative;
             z-index: 10;
@@ -28,16 +31,23 @@
         /* Prevent native scroll; we swap content instead */
         html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
         
-        /* Remove nav spacing from projects.css on homepage */
-        .main-container { padding-top: 0 !important; }
+        /* Remove nav spacing from projects.css on homepage and add mobile-safe padding */
+        .main-container { 
+            padding-top: 0 !important; 
+            padding-left: max(env(safe-area-inset-left, 0px), 12px);
+            padding-right: max(env(safe-area-inset-right, 0px), 12px);
+        }
         
         /* Content container that holds hero and panels */
         .content-container {
             position: relative;
-            min-height: 100vh;
+            min-height: calc(100vh - var(--nav-h));
+            margin-top: var(--nav-h); /* push below fixed nav */
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: max(env(safe-area-inset-top, 0px), 8px);
+            padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
         }
         
         /* Panel styling - same position as hero */
@@ -46,29 +56,30 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: min(800px, 90vw);
+            width: min(800px, 92vw);
             text-align: center;
             opacity: 0;
             visibility: hidden;
             transition: none; /* We'll use GSAP for animations */
             z-index: 11; /* Above hero while transitioning */
+            padding: 0 4vw; /* keep text away from edges on mobile */
         }
         
         .home-panel h3 { 
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
+            margin-bottom: 1.25rem;
+            font-size: clamp(1.25rem, 5vw, 2rem);
+            line-height: 1.2;
         }
         
         .home-panel p { 
             color: var(--text-secondary); 
-            line-height: 1.75;
-            font-size: 1.1rem;
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 3.6vw, 1.1rem);
         }
         
-        @media (max-width: 768px) {
-            .home-panel h3 { font-size: 1.5rem; }
-            .home-panel p { font-size: 1rem; }
-        }
+        /* Tune hero title/subtitle for mobile to avoid clipping */
+        .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+        .hero-subtitle { font-size: clamp(1rem, 3.5vw, 1.2rem); }
     </style>
 </head>
 <body>
