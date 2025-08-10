@@ -20,11 +20,11 @@ import pkg from 'pg';
 const { Pool } = pkg;
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'my-website',
-    password: 'rawad2003',
-    port: 5433, 
+    user: 'my_website_user',
+    host: 'dpg-cr4964rtq21c73e0qmcg-a',
+    database: 'my_website_y4et',
+    password: 'z7gI5uZzaUAXj5iimqr5GfsbcKNINlrZ',
+    port: 5432, 
 });
 
 export default pool;
