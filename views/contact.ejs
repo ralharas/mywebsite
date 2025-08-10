@@ -15,7 +15,7 @@
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
 
-    <% include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
+    <%- include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
 
     <div class="main-container">
         <section class="hero-section" style="min-height: 40vh;">
