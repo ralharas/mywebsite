@@ -7,6 +7,7 @@ import session from 'express-session';
 import indexRouter from './routes/index.js';
 import adminRouter from './routes/admin.js';
 import kanbanRouter from './routes/kanban.js';
+import db from './db/db.js';
 
 const app = express();
 
@@ -37,6 +38,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', indexRouter);
 app.use('/', adminRouter);
 app.use('/', kanbanRouter);
+
+// Healthcheck to verify DB connectivity
+app.get('/health/db', async (req, res) => {
+    try {
+        // Simple roundtrip
+        const { rows } = await db.query('SELECT 1 as ok');
+        res.status(200).json({ status: 'ok', db: rows[0].ok === 1 ? 'connected' : 'unknown' });
+    } catch (e) {
+        console.error('DB healthcheck failed:', e);
+        res.status(500).json({ status: 'error', message: 'database connection failed' });
+    }
+});
 
 // Error handling
 app.use((err, req, res, next) => {
