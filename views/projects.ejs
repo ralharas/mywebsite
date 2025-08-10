@@ -1,27 +1,180 @@
-<%- include('partials/header') %>
-<link rel="stylesheet" href="/css/projects.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Rawad Al-Haras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <link rel="stylesheet" href="/css/projects.css">
+</head>
+<body>
+    <!-- Animated Bubbles Background -->
+    <div class="bubble-container" id="bubbleContainer"></div>
+    
+    <!-- Animated Border Glow -->
+    <div class="glow-border"></div>
+    <div class="glow-border-left"></div>
+    <div class="glow-border-right"></div>
 
-<div class="container mt-5">
-    <% projects.forEach((project, index) => { %>
-        <div class="about-section <%= index % 2 !== 0 ? 'reverse' : '' %>">
-            <div class="about-image">
-                <img src="<%= project.background_img %>" alt="<%= project.title %>" loading="lazy">
+    <!-- Navigation Bar -->
+    <% include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">
+                <span class="gradient-text">My Projects</span>
+            </h1>
+            <p class="hero-subtitle">Explore my latest work and technical adventures</p>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="projects-section">
+            <div class="projects-grid">
+                <% projects.forEach((project, index) => { %>
+                    <article class="project-card" data-index="<%= index %>">
+                        <div class="project-image">
+                            <img src="<%= project.background_img %>" alt="<%= project.title %>" loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <% if (project.github_link) { %>
+                                        <a href="<%= project.github_link %>" class="project-link" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    <% } %>
+                                    <% if (project.live_demo) { %>
+                                        <a href="<%= project.live_demo %>" class="project-link" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title"><%= project.title %></h3>
+                            <p class="project-description"><%= project.description %></p>
+                            <a href="/projects/<%= project.id %>" class="project-btn">
+                                <span>View Details</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                <% }) %>
             </div>
-            <div class="about-text">
-                <h2><%= project.title %></h2>
-                <p><%= project.description %></p>
-                <a href="/projects/<%= project.id %>" class="btn btn-primary mt-3">View Project</a>
-            </div>
-        </div>
-    <% }) %>
-</div>
+        </section>
+    </div>
 
-<!-- Import GSAP for animations -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script type="module">
-    import { animateProjectsPage } from '/scripts/animations.js';
-    animateProjectsPage();  // Trigger the animation function for projects
-</script>
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
 
-<%- include('partials/footer') %>
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Create animated bubbles (same as homepage)
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 100 + 50;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * window.innerWidth + 'px';
+            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 30000);
+        }
+        
+        setInterval(createBubble, 2000);
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createBubble, i * 500);
+        }
+
+        // Change border glow colors periodically (same as homepage)
+        const gradients = [
+            'linear-gradient(45deg, #00d4ff, #ff00ff)',
+            'linear-gradient(45deg, #ff00ff, #00ff88)',
+            'linear-gradient(45deg, #00ff88, #00d4ff)',
+            'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
+            'linear-gradient(45deg, #667eea, #764ba2)',
+            'linear-gradient(45deg, #f093fb, #f5576c)'
+        ];
+        
+        let currentGradient = 0;
+        
+        function changeGradient() {
+            currentGradient = (currentGradient + 1) % gradients.length;
+            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
+            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
+            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
+        }
+        
+        setInterval(changeGradient, 3000);
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate hero section
+        gsap.from('.hero-title', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero-subtitle', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Animate project cards on scroll
+        gsap.from('.project-card', {
+            duration: 0.8,
+            y: 100,
+            opacity: 0,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.projects-grid',
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // Animate navigation on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const nav = document.querySelector('.projects-nav');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>

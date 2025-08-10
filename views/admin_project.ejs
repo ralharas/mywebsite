@@ -9,7 +9,10 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= project.title %></h5>
                         <a href="/projects/<%= project.id %>" class="btn btn-primary">View Project</a>
-                        <a href="/admin/edit/<%= project.id %>" class="btn btn-danger mt-2">Edit Project</a>
+                        <a href="/admin/edit/<%= project.id %>" class="btn btn-secondary mt-2">Edit</a>
+                        <form action="/admin/delete/<%= project.id %>" method="POST" style="display:inline-block; margin-left: .5rem;">
+                            <button type="submit" class="btn btn-danger mt-2" onclick="return confirm('Delete this project? This will remove it from public view.');">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>

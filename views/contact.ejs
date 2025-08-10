@@ -1,57 +1,103 @@
-<%- include('partials/header') %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/contact.css"> 
+    <title>Contact - Rawad Al-Haras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/projects.css">
 </head>
 <body>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <form id="contact-form" class="contact-form">
-            <h2 class="text-center">Contact Me</h2>
-            <div class="form-group">
-                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="subject" class="form-control" placeholder="Subject" required>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" name="message" rows="4" placeholder="Message" required></textarea>
-            </div>
-            <div class="form-group text-right">
-                <button type="submit" class="btn btn-primary">Send</button>
-            </div>
-        </form>
+    <div class="bubble-container" id="bubbleContainer"></div>
+    <div class="glow-border"></div>
+    <div class="glow-border-left"></div>
+    <div class="glow-border-right"></div>
+
+    <% include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
+
+    <div class="main-container">
+        <section class="hero-section" style="min-height: 40vh;">
+            <h1 class="hero-title"><span class="gradient-text">Contact Me</span></h1>
+            <p class="hero-subtitle">Reach out — I’d love to connect and collaborate.</p>
+        </section>
+
+        <section class="projects-section" style="max-width: 900px;">
+            <form id="contact-form" class="contact-form card">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" name="subject" class="form-input" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" name="message" rows="5" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </section>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init('_Or2TbMvwxIlC_IsV'); 
-        })();
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
+        // Bubbles
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 100 + 50;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * window.innerWidth + 'px';
+            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            setTimeout(() => bubble.remove(), 30000);
+        }
+        setInterval(createBubble, 2000);
+        for (let i = 0; i < 5; i++) setTimeout(createBubble, i * 500);
+
+        // Gradient cycle
+        const gradients = [
+            'linear-gradient(45deg, #00d4ff, #ff00ff)',
+            'linear-gradient(45deg, #ff00ff, #00ff88)',
+            'linear-gradient(45deg, #00ff88, #00d4ff)',
+            'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
+            'linear-gradient(45deg, #667eea, #764ba2)',
+            'linear-gradient(45deg, #f093fb, #f5576c)'
+        ];
+        let currentGradient = 0;
+        function changeGradient() {
+            currentGradient = (currentGradient + 1) % gradients.length;
+            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
+            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
+            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
+        }
+        setInterval(changeGradient, 3000);
+
+        // EmailJS
+        (function () { emailjs.init('_Or2TbMvwxIlC_IsV'); })();
         document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-
-        
-            console.log("EmailJS Initialized");
-
+            event.preventDefault();
             emailjs.sendForm('service_2fz2qgd', 'template_z3idx7n', this)
-            .then(function() {
-                console.log('SUCCESS!');
-                alert("Your message has been sent successfully");
-            }, function(error) {
-                console.log('FAILED....', error);
-                alert('There was an error sending your message, Please email rawadalh233@gmail.com');
-            });
+            .then(() => alert("Your message has been sent successfully"))
+            .catch(() => alert('There was an error sending your message, Please email rawadalh233@gmail.com'));
         });
     </script>
 </body>
 </html>
-<%- include('partials/footer') %>

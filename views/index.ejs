@@ -6,6 +6,7 @@
     <title>Rawad Al-Haras - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/dark-theme.css">
+    <link rel="stylesheet" href="/css/projects.css">
     <style>
         /* Page specific styles */
         .hero-section {
@@ -13,24 +14,7 @@
             z-index: 10;
         }
         
-        .social-links {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-        
-        .social-link {
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .social-link:hover {
-            color: var(--accent-primary);
-            transform: translateY(-3px);
-        }
+        .social-links { display: none; }
         
         .nav-section {
             margin-top: 3rem;
@@ -40,50 +24,109 @@
             flex-wrap: wrap;
         }
     </style>
+    <style>
+        /* Prevent native scroll; we swap content instead */
+        html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+        
+        /* Remove nav spacing from projects.css on homepage */
+        .main-container { padding-top: 0 !important; }
+        
+        /* Content container that holds hero and panels */
+        .content-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Panel styling - same position as hero */
+        .home-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(800px, 90vw);
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: none; /* We'll use GSAP for animations */
+            z-index: 11; /* Above hero while transitioning */
+        }
+        
+        .home-panel h3 { 
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .home-panel p { 
+            color: var(--text-secondary); 
+            line-height: 1.75;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .home-panel h3 { font-size: 1.5rem; }
+            .home-panel p { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Animated Bubbles Background -->
-    <div class="bubble-container" id="bubbleContainer"></div>
+    <div class="bubble-container" id="bubbleContainer"></div
     
     <!-- Animated Border Glow -->
     <div class="glow-border"></div>
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
     
+    <% include('partials/nav', { isFiancee: (typeof user !== 'undefined' && user && user.role === 'fiancee') }) %>
     <div class="main-container">
-        <section class="hero-section">
-            <h1 class="hero-title">
-                <span id="heroText" class="typewriter"></span>
-                <span class="typewriter-cursor"></span>
-            </h1>
-            <h2 class="hero-subtitle">
-                <span id="subtitleText" class="typewriter" style="animation-delay: 2s;"></span>
-            </h2>
-            
-            <div class="social-links">
-                <a href="https://github.com/ralharas" class="social-link" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://linkedin.com/in/ralharas" class="social-link" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="mailto:ralharas@uwo.ca" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-            
-            <div class="nav-section">
-                <a href="/about" class="btn">About Me</a>
-                <a href="/projects" class="btn">Projects</a>
-                <a href="/contact" class="btn">Contact</a>
-            </div>
-        </section>
+        <div class="content-container">
+            <section class="hero-section">
+                <h1 class="hero-title">
+                    <span id="heroText" class="typewriter"></span>
+                    <span class="typewriter-cursor"></span>
+                </h1>
+                <h2 class="hero-subtitle">
+                    <span id="subtitleText" class="typewriter" style="animation-delay: 2s;"></span>
+                </h2>
+                
+                <div class="nav-section">
+                    <a href="/about" class="btn">About Me</a>
+                    <a href="/projects" class="btn">Projects</a>
+                    <a href="/contact" class="btn">Contact</a>
+                </div>
+            </section>
+
+            <% if (typeof homeSections !== 'undefined' && homeSections.length > 0) { %>
+                <% homeSections.forEach(function(s, idx){ %>
+                    <article class="home-panel" data-idx="<%= idx %>">
+                        <% if (s.title) { %>
+                            <h1 class="hero-title gradient-text"><%= s.title %></h1>
+                        <% } %>
+                        <div class="panel-content">
+                            <p><%- (s.content || '').replace(/\n/g, '<br>') %></p>
+                        </div>
+                    </article>
+                <% }) %>
+            <% } %>
+        </div>
     </div>
     
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
     <script>
+        // Mobile menu toggle
+        (function(){
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            if (hamburger && navMenu){
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+        })();
+
         // Create animated bubbles
         function createBubble() {
             const bubble = document.createElement('div');
@@ -146,6 +189,164 @@
                 typeWriter(subtitleText, "Data Warehouse Developer Intern at Celestica", 50);
             }, 2000);
         });
+
+        // Panel slider: swap content on wheel/touch; user stays on same page.
+        (function initPanels(){
+            if (window.__homePanelsInit) return; // Prevent duplicate listeners on hot reload
+            window.__homePanelsInit = true;
+            const panels = Array.from(document.querySelectorAll('.home-panel'));
+            if (!panels.length) return;
+            const hero = document.querySelector('.hero-section');
+
+            function setup(){
+                let currentIndex = -1; // -1 = hero visible, 0..n = panel index
+                let isAnimating = false;
+                let gestureLocked = false; // Prevent momentum from skipping panels
+                
+                // Initialize panels to be hidden
+                panels.forEach(panel => {
+                    gsap.set(panel, { opacity: 0, visibility: 'hidden', y: 50 });
+                });
+                
+                // Show hero initially
+                gsap.set(hero, { opacity: 1, visibility: 'visible', y: 0 });
+
+                function showContent(index) {
+                    if (isAnimating) return;
+                    isAnimating = true;
+                    
+                    // Hide current content
+                    const currentElement = currentIndex === -1 ? hero : panels[currentIndex];
+                    
+                    gsap.to(currentElement, {
+                        opacity: 0,
+                        y: -30,
+                        duration: 0.3,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            gsap.set(currentElement, { visibility: 'hidden' });
+                            
+                            // Show new content
+                            const newElement = index === -1 ? hero : panels[index];
+                            gsap.set(newElement, { visibility: 'visible', y: 30, opacity: 0 });
+                            
+                            gsap.to(newElement, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 0.4,
+                                ease: 'power2.out',
+                                onComplete: () => {
+                                    currentIndex = index;
+                                    isAnimating = false;
+                                    gestureLocked = false; // Unlock only when animation completes
+                                }
+                            });
+                        }
+                    });
+                }
+
+                function handleScroll(direction) {
+                    if (gestureLocked || isAnimating) return;
+                    gestureLocked = true; // Lock for the duration of one gesture
+                    let acted = false;
+                    if (direction > 0) { // Scroll down
+                        if (currentIndex === -1) {
+                            showContent(0); // Hero to first panel
+                            acted = true;
+                        } else if (currentIndex < panels.length - 1) {
+                            showContent(currentIndex + 1); // Next panel
+                            acted = true;
+                        }
+                    } else if (direction < 0) { // Scroll up
+                        if (currentIndex === 0) {
+                            showContent(-1); // First panel to hero
+                            acted = true;
+                        } else if (currentIndex > 0) {
+                            showContent(currentIndex - 1); // Previous panel
+                            acted = true;
+                        }
+                    }
+                    if (!acted) { gestureLocked = false; }
+                }
+
+                // Wheel event handler with accumulation threshold to avoid double-advance
+                let wheelAccum = 0;
+                let wheelResetTimer = null;
+                const wheelThreshold = 120; // pixels of deltaY to trigger one step (heavier)
+                function onWheel(e) {
+                    e.preventDefault();
+                    if (gestureLocked || isAnimating) return;
+                    const dy = e.deltaY || 0;
+                    // Ignore micro jitter
+                    if (Math.abs(dy) < 1) return;
+                    wheelAccum += dy;
+                    clearTimeout(wheelResetTimer);
+                    wheelResetTimer = setTimeout(() => { wheelAccum = 0; }, 300);
+                    if (Math.abs(wheelAccum) >= wheelThreshold) {
+                        const direction = wheelAccum > 0 ? 1 : -1;
+                        wheelAccum = 0;
+                        handleScroll(direction);
+                    }
+                }
+                
+                // Keyboard support
+                function onKeydown(e) {
+                    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        handleScroll(1);
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        handleScroll(-1);
+                    }
+                }
+                
+                // Touch support
+                let touchStartY = null;
+                let hasSwiped = false;
+                
+                function onTouchStart(e) {
+                    if (e.touches && e.touches.length === 1) {
+                        touchStartY = e.touches[0].clientY;
+                        hasSwiped = false;
+                    }
+                }
+                
+                function onTouchMove(e) {
+                    if (touchStartY === null || hasSwiped) return;
+                    
+                    const touchY = e.touches[0].clientY;
+                    const deltaY = touchStartY - touchY;
+                    
+                    if (Math.abs(deltaY) > 80) { // Minimum swipe distance (heavier)
+                        e.preventDefault();
+                        hasSwiped = true;
+                        handleScroll(deltaY);
+                    }
+                }
+                
+                function onTouchEnd() {
+                    touchStartY = null;
+                    hasSwiped = false;
+                }
+
+                // Add event listeners
+                window.addEventListener('wheel', onWheel, { passive: false });
+                window.addEventListener('keydown', onKeydown);
+                window.addEventListener('touchstart', onTouchStart, { passive: true });
+                window.addEventListener('touchmove', onTouchMove, { passive: false });
+                window.addEventListener('touchend', onTouchEnd, { passive: true });
+            }
+            
+            // Ensure GSAP is available
+            if (typeof gsap === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+                script.onload = setup;
+                document.body.appendChild(script);
+            } else {
+                setup();
+            }
+        })();
         
         // Change border glow colors periodically
         const gradients = [

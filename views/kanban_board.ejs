@@ -17,13 +17,14 @@
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
 
+    <% include('partials/nav', { isFiancee: true }) %>
     <div class="main-container">
         <div class="kanban-container">
             <div class="kanban-header">
                 <h1 class="kanban-title">Rawan's Board</h1>
                 <div>
                     <button class="btn" onclick="openTicketForm()">Submit Ticket</button>
-                    <a href="/admin" class="btn">Back to Dashboard</a>
+                    <a href="<%= typeof backUrl !== 'undefined' ? backUrl : '/admin' %>" class="btn">Back to Dashboard</a>
                 </div>
             </div>
             <div class="kanban-board" id="kanbanBoard"></div>

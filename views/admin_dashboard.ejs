@@ -68,6 +68,24 @@
                 <h3 class="dashboard-title">Submit Ticket</h3>
                 <p class="dashboard-description">Create a new support ticket</p>
             </div>
+
+            <div class="dashboard-tile" onclick="window.location.href='/admin/home'">
+                <div class="dashboard-icon">🏠</div>
+                <h3 class="dashboard-title">Homepage Sections</h3>
+                <p class="dashboard-description">Edit scroll content on the homepage</p>
+            </div>
+
+            <div class="dashboard-tile" onclick="window.location.href='/admin/about'">
+                <div class="dashboard-icon">📄</div>
+                <h3 class="dashboard-title">Edit About Page</h3>
+                <p class="dashboard-description">Manage paragraphs and order for the About section</p>
+            </div>
+
+            <div class="dashboard-tile" onclick="window.location.href='/admin/settings'">
+                <div class="dashboard-icon">⚙️</div>
+                <h3 class="dashboard-title">Site Settings</h3>
+                <p class="dashboard-description">Branding, nav, and global options</p>
+            </div>
             
             <% if (user.role === 'admin') { %>
                 <div class="dashboard-tile" onclick="window.location.href='/admin/users'">

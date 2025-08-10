@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit About Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/dark-theme.css" />
+  <style>
+    .wrap { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .header { display:flex; justify-content: space-between; align-items:center; margin-bottom: 1rem; }
+    .small { color: var(--text-secondary); }
+    .grid { display: grid; gap: 1rem; }
+    .row { display:grid; grid-template-columns: 90px 1fr 110px 110px; gap: .75rem; align-items: center; }
+    .row > * { width: 100%; }
+    .tile { background: var(--bg-secondary); border:1px solid var(--bg-tertiary); border-radius: 10px; padding: 1rem; }
+    .tile h3 { margin-bottom: .75rem; }
+    .controls { display:flex; gap:.5rem; }
+    .btn-sm { padding:.5rem 1rem; border:1px solid var(--accent-primary); color: var(--accent-primary); background:transparent; cursor:pointer; border-radius:6px; }
+    .btn-sm:hover { background: var(--gradient-1); color: var(--bg-primary); border-color: transparent; }
+    input, textarea, select { background: var(--bg-tertiary); color: var(--text-primary); border:1px solid var(--bg-tertiary); border-radius:6px; padding:.5rem .75rem; font-family: inherit; }
+    textarea { resize: vertical; min-height: 100px; }
+    .add { margin-top: 1rem; }
+    .legend { margin: .25rem 0 1rem; font-size:.9rem; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <div class="bubble-container" id="bubbleContainer"></div>
+  <div class="glow-border"></div>
+  <div class="glow-border-left"></div>
+  <div class="glow-border-right"></div>
+
+  <div class="wrap">
+    <div class="header">
+      <h1 class="hero-title">Edit About Page</h1>
+      <a class="btn btn-sm" href="/admin">Back to Dashboard</a>
+    </div>
+    <p class="small">Manage the paragraphs that cycle on the About page scroll interaction. Reorder with Position. Toggle visibility with Enabled.</p>
+
+    <form method="POST" action="/admin/about">
+      <div class="tile">
+        <div class="legend">Paragraphs will display one at a time in order (enabled only).</div>
+        <div class="grid" id="rows">
+          <% (aboutParas || []).forEach(function(s, i){ %>
+          <div class="row">
+            <input type="hidden" name="id" value="<%= s.id %>" />
+            <input type="number" name="position" value="<%= s.position || i %>" min="0" />
+            <textarea name="content" placeholder="Paragraph text..."><%= s.content || '' %></textarea>
+            <label style="display:flex; align-items:center; gap:.5rem; color:var(--text-secondary)">
+              <input type="checkbox" name="enabled" <%= s.enabled ? 'checked' : '' %> /> Enabled
+            </label>
+            <button type="submit" formaction="/admin/about/delete/<%= s.id %>" formmethod="POST" class="btn-sm" style="background:transparent; border-color:#ff6b6b; color:#ff6b6b" onclick="return confirm('Delete this paragraph?');">Delete</button>
+          </div>
+          <% }) %>
+        </div>
+        <div class="controls add">
+          <button type="button" class="btn-sm" id="addRow">+ Add Paragraph</button>
+          <button type="submit" class="btn-sm">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      const size = Math.random() * 100 + 50;
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = Math.random() * window.innerWidth + 'px';
+      bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+      bubble.style.animationDelay = Math.random() * 5 + 's';
+      document.getElementById('bubbleContainer').appendChild(bubble);
+      setTimeout(() => bubble.remove(), 30000);
+    }
+    setInterval(createBubble, 2000);
+    for (let i = 0; i < 5; i++) setTimeout(createBubble, i * 500);
+
+    document.getElementById('addRow').addEventListener('click', function(){
+      const rows = document.getElementById('rows');
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `
+        <input type="hidden" name="id" value="" />
+        <input type="number" name="position" value="0" min="0" />
+        <textarea name="content" placeholder="Paragraph text..."></textarea>
+        <label style="display:flex; align-items:center; gap:.5rem; color:var(--text-secondary)">
+          <input type="checkbox" name="enabled" checked /> Enabled
+        </label>
+        <span></span>
+      `;
+      rows.appendChild(div);
+    });
+  </script>
+</body>
+</html>
+

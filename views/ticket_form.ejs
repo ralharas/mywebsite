@@ -63,9 +63,10 @@
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
     
+    <% include('partials/nav', { isFiancee: true }) %>
     <div class="main-container">
         <div class="ticket-form-container">
-            <a href="/admin" class="btn back-btn">← Back to Dashboard</a>
+            <a href="<%= typeof backUrl !== 'undefined' ? backUrl : '/admin' %>" class="btn back-btn">← Back to Dashboard</a>
             
             <div class="form-header">
                 <h1 class="hero-title">Submit a Ticket</h1>

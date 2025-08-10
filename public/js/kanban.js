@@ -70,12 +70,12 @@ function createTicketElement(ticket) {
     return `
         <div class="kanban-ticket" draggable="true" data-ticket-id="${ticket.id}" 
              ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
-            <h4 class="kanban-ticket-title">${ticket.title}</h4>
+            <h4 class="kanban-ticket-title"><a href="/admin/tickets/${ticket.id}" class="ticket-link">${ticket.title}</a></h4>
             <p class="kanban-ticket-description">${ticket.description || ''}</p>
             <div class="kanban-ticket-footer">
                 <span class="kanban-ticket-priority priority-${ticket.priority}">${ticket.priority}</span>
                 <div class="kanban-ticket-actions">
-                    <button class="kanban-ticket-action" onclick="editTicket(${ticket.id})">✏️</button>
+                    <button class="kanban-ticket-action" onclick="window.location.href='/admin/tickets/${ticket.id}'">✏️</button>
                     <button class="kanban-ticket-action" onclick="deleteTicket(${ticket.id})">🗑️</button>
                 </div>
             </div>
@@ -181,10 +181,9 @@ async function deleteTicket(ticketId) {
     }
 }
 
-// Edit ticket
+// Edit ticket (open detail page)
 async function editTicket(ticketId) {
-    // TODO: Implement edit functionality
-    console.log('Edit ticket:', ticketId);
+    window.location.href = `/admin/tickets/${ticketId}`;
 }
 
 // Add new column

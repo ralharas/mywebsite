@@ -1,0 +1,35 @@
+<nav class="projects-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">Rawad Alharastani</a>
+    <ul class="nav-menu" id="nav-menu">
+      <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="/projects" class="nav-link">Projects</a></li>
+      <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+      <% if (typeof isFiancee !== 'undefined' && isFiancee) { %>
+        <li class="nav-item"><a href="/fiance/dashboard" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="/admin/kanban" class="nav-link">Board</a></li>
+        <li class="nav-item"><a href="/admin/ticket/new" class="nav-link">Raise Ticket</a></li>
+        <li class="nav-item"><a href="/admin/logout" class="nav-link">Logout</a></li>
+      <% } %>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
+<script>
+  (function(){
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    if (hamburger && navMenu){
+      hamburger.addEventListener('click', ()=>{
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+    }
+  })();
+</script>
+

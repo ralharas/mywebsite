@@ -82,8 +82,11 @@
                 <input type="text" class="form-control" id="walkthrough_step3" name="walkthrough_step3" value="<%= project.walkthrough_step3 %>">
             </div>
 
-            <div class="col-md-12 text-center mt-4">
+            <div class="col-md-12 text-center mt-4" style="display:flex; gap:1rem; justify-content:center;">
                 <button type="submit" class="btn btn-primary btn-lg">Update Project</button>
+                <form action="/admin/delete/<%= project.id %>" method="POST" onsubmit="return confirm('Delete this project? This will remove it from public view.');">
+                    <button type="submit" class="btn btn-danger btn-lg">Delete Project</button>
+                </form>
             </div>
         </div>
     </form>

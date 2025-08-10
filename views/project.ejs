@@ -1,138 +1,146 @@
-<%- include('partials/header') %>
-<link rel="stylesheet" href="/css/project.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= project.title %> - Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <link rel="stylesheet" href="/css/project.css">
+    <link rel="stylesheet" href="/css/projects.css">
+</head>
+<body>
+    <div class="bubble-container" id="bubbleContainer"></div>
+    <div class="glow-border"></div>
+    <div class="glow-border-left"></div>
+    <div class="glow-border-right"></div>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Project Title -->
-            <h1 class="fw-bold"><%= project.title %></h1>
-            
-            <!-- Project Description -->
-            <p class="lead"><%- project.description.replace(/\n/g, '<br>') %></p>
-        </div>
-    </div>
-
-    <!-- Video (if available, appears AFTER description) -->
-    <% if (project.video_url) { %>
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="video-container">
-                <video class="d-block w-100" controls>
-                    <source src="<%= project.video_url %>" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+    <nav class="projects-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Rawad Alharastani</a
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/projects" class="nav-link active">Projects</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
-    </div>
-    <% } %>
+    </nav>
 
-    <!-- Project Carousel -->
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <div id="projectCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    
-                    <!-- Background Image (if available) -->
-                    <% if (project.background_img) { %>
-                    <div class="carousel-item active">
-                        <img src="<%= project.background_img %>" class="d-block w-100" alt="Project Background">
-                    </div>
+    <div class="main-container">
+        <section class="hero-section" style="min-height: 40vh;">
+            <h1 class="hero-title"><span class="gradient-text"><%= project.title %></span></h1>
+            <p class="hero-subtitle">Project Overview & Media</p>
+        </section>
+
+        <section class="project-detail-section">
+            <div class="project-detail-grid">
+                <div class="project-media card">
+                    <% if (project.video_url) { %>
+                        <video class="project-video" controls>
+                            <source src="<%= project.video_url %>" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    <% } else if (project.background_img) { %>
+                        <img src="<%= project.background_img %>" alt="<%= project.title %>" class="project-cover"/>
                     <% } %>
-                    
-                    <!-- Additional Images -->
-                    <% if (project.img2) { %>
-                    <div class="carousel-item">
-                        <img src="<%= project.img2 %>" class="d-block w-100" alt="Project Image 2">
+                    <div class="thumb-row">
+                        <% if (project.background_img) { %>
+                            <img src="<%= project.background_img %>" class="thumb" data-src="<%= project.background_img %>">
+                        <% } %>
+                        <% if (project.img2) { %>
+                            <img src="<%= project.img2 %>" class="thumb" data-src="<%= project.img2 %>">
+                        <% } %>
+                        <% if (project.img3) { %>
+                            <img src="<%= project.img3 %>" class="thumb" data-src="<%= project.img3 %>">
+                        <% } %>
+                        <% if (project.img4) { %>
+                            <img src="<%= project.img4 %>" class="thumb" data-src="<%= project.img4 %>">
+                        <% } %>
                     </div>
-                    <% } %>
-                    <% if (project.img3) { %>
-                    <div class="carousel-item">
-                        <img src="<%= project.img3 %>" class="d-block w-100" alt="Project Image 3">
+                </div>
+                <div class="project-info card">
+                    <h2 class="project-info-title">About this project</h2>
+                    <p class="project-info-desc"><%- project.description.replace(/\n/g, '<br>') %></p>
+                    <div class="project-actions">
+                        <% if (project.github_link) { %>
+                        <a href="<%= project.github_link %>" class="project-btn" target="_blank"><span>GitHub</span><i class="fas fa-code-branch"></i></a>
+                        <% } %>
+                        <% if (project.live_demo) { %>
+                        <a href="<%= project.live_demo %>" class="project-btn" target="_blank"><span>Live Demo</span><i class="fas fa-external-link-alt"></i></a>
+                        <% } %>
                     </div>
-                    <% } %>
-                    <% if (project.img4) { %>
-                    <div class="carousel-item">
-                        <img src="<%= project.img4 %>" class="d-block w-100" alt="Project Image 4">
+                    <% if (project.walkthrough_step1 || project.walkthrough_step2 || project.walkthrough_step3) { %>
+                    <div class="walkthrough">
+                        <h3 class="project-info-title">Walkthrough</h3>
+                        <ol class="walkthrough-list">
+                            <% if (project.walkthrough_step1) { %><li><%= project.walkthrough_step1 %></li><% } %>
+                            <% if (project.walkthrough_step2) { %><li><%= project.walkthrough_step2 %></li><% } %>
+                            <% if (project.walkthrough_step3) { %><li><%= project.walkthrough_step3 %></li><% } %>
+                        </ol>
                     </div>
                     <% } %>
                 </div>
-
-                <!-- Carousel Navigation -->
-                <a class="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>            
-        </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Thumbnail Navigation Below Carousel -->
-    <div class="container mt-4">
-        <h5 class="text-center fw-bold">Image Previews</h5>
-        <div class="d-flex justify-content-center">
-            <% if (project.background_img) { %>
-                <img src="<%= project.background_img %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="0" alt="Thumbnail">
-            <% } %>
-            <% if (project.img2) { %>
-                <img src="<%= project.img2 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="1" alt="Thumbnail">
-            <% } %>
-            <% if (project.img3) { %>
-                <img src="<%= project.img3 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="2" alt="Thumbnail">
-            <% } %>
-            <% if (project.img4) { %>
-                <img src="<%= project.img4 %>" class="img-thumbnail rounded-circle clickable-thumbnail mx-2" data-target="#projectCarousel" data-slide-to="3" alt="Thumbnail">
-            <% } %>
-        </div>
-    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-    <!-- Walkthrough Steps -->
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3>Walkthrough</h3>
-            <ul class="list-group">
-                <% if (project.walkthrough_step1) { %>
-                <li class="list-group-item"><strong>Step 1:</strong> <%= project.walkthrough_step1 %></li>
-                <% } %>
-                <% if (project.walkthrough_step2) { %>
-                <li class="list-group-item"><strong>Step 2:</strong> <%= project.walkthrough_step2 %></li>
-                <% } %>
-                <% if (project.walkthrough_step3) { %>
-                <li class="list-group-item"><strong>Step 3:</strong> <%= project.walkthrough_step3 %></li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-</div>
+        // Bubbles
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 100 + 50;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * window.innerWidth + 'px';
+            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            setTimeout(() => bubble.remove(), 30000);
+        }
+        setInterval(createBubble, 2000);
+        for (let i = 0; i < 5; i++) setTimeout(createBubble, i * 500);
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        // Gradient cycle
+        const gradients = [
+            'linear-gradient(45deg, #00d4ff, #ff00ff)',
+            'linear-gradient(45deg, #ff00ff, #00ff88)',
+            'linear-gradient(45deg, #00ff88, #00d4ff)',
+            'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
+            'linear-gradient(45deg, #667eea, #764ba2)',
+            'linear-gradient(45deg, #f093fb, #f5576c)'
+        ];
+        let currentGradient = 0;
+        function changeGradient() {
+            currentGradient = (currentGradient + 1) % gradients.length;
+            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
+            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
+            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
+        }
+        setInterval(changeGradient, 3000);
 
-<script>
-$(document).ready(function () {
-    $('.clickable-thumbnail').on('click', function() {
-        const slideIndex = $(this).attr('data-slide-to');
-        $('#projectCarousel').carousel(parseInt(slideIndex));
-    });
-});
-</script>
-
-<%- include('partials/footer') %>
-
-<style>
-    .clickable-thumbnail {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    .clickable-thumbnail:hover {
-        transform: scale(1.2);
-    }
-</style>
+        // Simple thumbnail gallery switch (if not video)
+        const cover = document.querySelector('.project-cover');
+        if (cover) {
+            document.querySelectorAll('.thumb').forEach(t => {
+                t.addEventListener('click', () => { cover.src = t.dataset.src; });
+            });
+        }
+    </script>
+</body>
+</html>
