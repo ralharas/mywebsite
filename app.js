@@ -40,9 +40,9 @@ const sessionOptions = {
 
 // Use Postgres-backed session store in production
 if (isProd && process.env.DATABASE_URL) {
+    // Reuse the existing pg Pool (already configured with SSL) to avoid SSL/TLS issues
     sessionOptions.store = new PgSession({
-        conString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
+        pool: db.pool,
         tableName: 'user_sessions',
         createTableIfMissing: true,
     });
