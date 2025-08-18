@@ -68,11 +68,15 @@
                     <h2 class="project-info-title">About this project</h2>
                     <p class="project-info-desc"><%- project.description.replace(/\n/g, '<br>') %></p>
                     <div class="project-actions">
-                        <% if (project.github_link) { %>
-                        <a href="<%= project.github_link %>" class="project-btn" target="_blank"><span>GitHub</span><i class="fas fa-code-branch"></i></a>
+                        <% if (project.github_link && project.github_link.trim()) { %>
+                            <a href="<%= project.github_link %>" class="project-btn" target="_blank"><span>GitHub</span><i class="fas fa-code-branch"></i></a>
+                        <% } else { %>
+                            <span class="project-btn disabled"><span>GitHub</span><i class="fas fa-code-branch"></i></span>
                         <% } %>
-                        <% if (project.live_demo) { %>
-                        <a href="<%= project.live_demo %>" class="project-btn" target="_blank"><span>Live Demo</span><i class="fas fa-external-link-alt"></i></a>
+                        <% if (project.live_demo && project.live_demo.trim()) { %>
+                            <a href="<%= project.live_demo %>" class="project-btn" target="_blank"><span>Live Demo</span><i class="fas fa-external-link-alt"></i></a>
+                        <% } else { %>
+                            <span class="project-btn disabled"><span>Live Demo</span><i class="fas fa-external-link-alt"></i></span>
                         <% } %>
                     </div>
                     <% if (project.walkthrough_step1 || project.walkthrough_step2 || project.walkthrough_step3) { %>

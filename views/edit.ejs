@@ -17,18 +17,18 @@
             </div>
 
             <div class="col-md-6">
-                <label for="github_link" class="form-label fw-bold">GitHub Link</label>
-                <input type="url" class="form-control" id="github_link" name="github_link" value="<%= project.github_link %>">
+                <label for="github_link" class="form-label fw-bold">GitHub Link (optional)</label>
+                <input type="url" class="form-control" id="github_link" name="github_link" value="<%= project.github_link %>" placeholder="Leave empty if not available">
             </div>
 
             <div class="col-md-6">
-                <label for="live_demo" class="form-label fw-bold">Live Demo</label>
-                <input type="url" class="form-control" id="live_demo" name="live_demo" value="<%= project.live_demo %>">
+                <label for="live_demo" class="form-label fw-bold">Live Demo (optional)</label>
+                <input type="url" class="form-control" id="live_demo" name="live_demo" value="<%= project.live_demo %>" placeholder="Leave empty if not available">
             </div>
 
             <div class="col-md-12">
-                <label for="video_url" class="form-label fw-bold">Video URL (Amazon S3)</label>
-                <input type="url" class="form-control" id="video_url" name="video_url" value="<%= project.video_url %>">
+                <label for="video_url" class="form-label fw-bold">Video URL (Amazon S3) - Optional</label>
+                <input type="url" class="form-control" id="video_url" name="video_url" value="<%= project.video_url %>" placeholder="Leave empty if not available">
             </div>
 
             <div class="col-md-6">

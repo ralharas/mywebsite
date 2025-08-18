@@ -35,13 +35,6 @@
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Keep hover accents blue only */
-.thumb:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
 }
 
 .project-info-title {
@@ -71,14 +64,13 @@
     color: var(--accent-primary);
     text-decoration: none;
     border-radius: 50px;
-    transition: all 0.2s ease;
     font-weight: 500;
 }
 
-/* Blue hover only */
-.project-btn:hover {
-    background: var(--accent-primary);
-    color: var(--bg-primary);
+.project-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .walkthrough-list {
