@@ -251,17 +251,7 @@ body {
     background: var(--gradient-1);
     border-radius: 8px;
     opacity: 0;
-    transition: opacity 0.3s ease;
     z-index: -1;
-}
-
-.card:hover::before {
-    opacity: 1;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
 }
 
 /* Form styling */
