@@ -78,8 +78,26 @@
         }
         
         /* Tune hero title/subtitle for mobile to avoid clipping */
-        .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
-        .hero-subtitle { font-size: clamp(1rem, 3.5vw, 1.2rem); }
+        .hero-title { 
+            font-size: clamp(2rem, 8vw, 3rem);
+            max-width: 90vw;
+            word-wrap: break-word;
+        }
+        .hero-subtitle { 
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            max-width: 90vw;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal !important;
+        }
+        
+        /* Override typewriter animation on mobile */
+        @media (max-width: 768px) {
+            .typewriter {
+                white-space: normal !important;
+                overflow: visible !important;
+            }
+        }
     </style>
 </head>
 <body>
