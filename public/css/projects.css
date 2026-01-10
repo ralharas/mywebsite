@@ -95,6 +95,16 @@
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+    padding: 10px;
+    /* Ensure minimum touch target size for mobile (48x48px recommended) */
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .hamburger .bar {
@@ -102,6 +112,7 @@
     height: 3px;
     background: var(--text-primary);
     transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
 .hamburger.active .bar:nth-child(1) {

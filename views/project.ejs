@@ -15,22 +15,7 @@
     <div class="glow-border-left"></div>
     <div class="glow-border-right"></div>
 
-    <nav class="projects-nav">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">Rawad Alharastani</a
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="/projects" class="nav-link active">Projects</a></li>
-                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+    <%- include('partials/nav', { isFiancee: false }) %>
 
     <div class="main-container">
         <section class="hero-section" style="min-height: 40vh;">
@@ -95,49 +80,10 @@
     </div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <%- include('partials/common_scripts') %>
+    
     <script>
-        // Mobile nav toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Bubbles
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 100 + 50;
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            bubble.style.left = Math.random() * window.innerWidth + 'px';
-            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            bubble.style.animationDelay = Math.random() * 5 + 's';
-            document.getElementById('bubbleContainer').appendChild(bubble);
-            setTimeout(() => bubble.remove(), 30000);
-        }
-        setInterval(createBubble, 2000);
-        for (let i = 0; i < 5; i++) setTimeout(createBubble, i * 500);
-
-        // Gradient cycle
-        const gradients = [
-            'linear-gradient(45deg, #00d4ff, #ff00ff)',
-            'linear-gradient(45deg, #ff00ff, #00ff88)',
-            'linear-gradient(45deg, #00ff88, #00d4ff)',
-            'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
-            'linear-gradient(45deg, #667eea, #764ba2)',
-            'linear-gradient(45deg, #f093fb, #f5576c)'
-        ];
-        let currentGradient = 0;
-        function changeGradient() {
-            currentGradient = (currentGradient + 1) % gradients.length;
-            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
-            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
-            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
-        }
-        setInterval(changeGradient, 3000);
-
         // Simple thumbnail gallery switch (if not video)
         const cover = document.querySelector('.project-cover');
         if (cover) {

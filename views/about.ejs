@@ -56,33 +56,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <%- include('partials/common_scripts') %>
+    
     <script>
-        // Mobile nav toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        // Bubbles
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 100 + 50;
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            bubble.style.left = Math.random() * window.innerWidth + 'px';
-            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            bubble.style.animationDelay = Math.random() * 5 + 's';
-            document.getElementById('bubbleContainer').appendChild(bubble);
-            setTimeout(() => bubble.remove(), 30000);
-        }
-        setInterval(createBubble, 2000);
-        for (let i = 0; i < 5; i++) setTimeout(createBubble, i * 500);
-
         // Use the same panel slider logic as homepage, but for about panels
         (function initAboutPanels(){
             const panels = Array.from(document.querySelectorAll('.about-panel'));

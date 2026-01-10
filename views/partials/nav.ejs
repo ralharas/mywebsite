@@ -25,9 +25,34 @@
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     if (hamburger && navMenu){
-      hamburger.addEventListener('click', ()=>{
+      // Handle both click and touch events for mobile compatibility
+      const toggleMenu = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+      };
+      
+      hamburger.addEventListener('click', toggleMenu);
+      hamburger.addEventListener('touchstart', toggleMenu, { passive: false });
+      
+      // Close menu when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && 
+            !navMenu.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('active');
+        }
+      });
+      
+      // Close menu when clicking a nav link
+      const navLinks = navMenu.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('active');
+        });
       });
     }
   })();

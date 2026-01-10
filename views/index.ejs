@@ -124,54 +124,9 @@
         </div>
     </div>
     
+    <%- include('partials/common_scripts') %>
+    
     <script>
-        // Mobile menu toggle
-        (function(){
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
-            if (hamburger && navMenu){
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                });
-            }
-        })();
-
-        // Create animated bubbles
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            
-            // Random size
-            const size = Math.random() * 100 + 50;
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            
-            // Random position
-            bubble.style.left = Math.random() * window.innerWidth + 'px';
-            
-            // Random animation duration
-            bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            
-            // Random delay
-            bubble.style.animationDelay = Math.random() * 5 + 's';
-            
-            document.getElementById('bubbleContainer').appendChild(bubble);
-            
-            // Remove bubble after animation
-            setTimeout(() => {
-                bubble.remove();
-            }, 30000);
-        }
-        
-        // Create bubbles periodically
-        setInterval(createBubble, 2000);
-        
-        // Create initial bubbles
-        for (let i = 0; i < 5; i++) {
-            setTimeout(createBubble, i * 500);
-        }
-        
         // Typewriter effect
         function typeWriter(element, text, speed = 100) {
             let i = 0;
@@ -357,29 +312,6 @@
                 setup();
             }
         })();
-        
-        // Change border glow colors periodically
-        const gradients = [
-            'linear-gradient(45deg, #00d4ff, #ff00ff)',
-            'linear-gradient(45deg, #ff00ff, #00ff88)',
-            'linear-gradient(45deg, #00ff88, #00d4ff)',
-            'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
-            'linear-gradient(45deg, #667eea, #764ba2)',
-            'linear-gradient(45deg, #f093fb, #f5576c)'
-        ];
-        
-        let currentGradient = 0;
-        
-        function changeGradient() {
-            const borders = document.querySelectorAll('.glow-border::before, .glow-border::after, .glow-border-left, .glow-border-right');
-            currentGradient = (currentGradient + 1) % gradients.length;
-            
-            document.documentElement.style.setProperty('--gradient-1', gradients[currentGradient]);
-            document.documentElement.style.setProperty('--gradient-2', gradients[(currentGradient + 1) % gradients.length]);
-            document.documentElement.style.setProperty('--gradient-3', gradients[(currentGradient + 2) % gradients.length]);
-        }
-        
-        setInterval(changeGradient, 3000);
     </script>
 </body>
 </html>
