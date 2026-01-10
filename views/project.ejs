@@ -84,11 +84,50 @@
     <%- include('partials/common_scripts') %>
     
     <script>
-        // Simple thumbnail gallery switch (if not video)
+        // Image gallery with lightbox
         const cover = document.querySelector('.project-cover');
-        if (cover) {
-            document.querySelectorAll('.thumb').forEach(t => {
-                t.addEventListener('click', () => { cover.src = t.dataset.src; });
+        const thumbs = document.querySelectorAll('.thumb');
+        
+        // Switch main image on thumbnail click
+        if (cover && thumbs.length > 0) {
+            thumbs.forEach(t => {
+                // Regular click to switch
+                t.addEventListener('click', (e) => {
+                    if (window.innerWidth > 768) {
+                        // Desktop: just switch the image
+                        cover.src = t.dataset.src;
+                    } else {
+                        // Mobile: open in lightbox
+                        openLightbox(t.dataset.src);
+                    }
+                });
+            });
+            
+            // Desktop: click main image to open lightbox
+            if (window.innerWidth > 768) {
+                cover.addEventListener('click', () => {
+                    openLightbox(cover.src);
+                });
+            }
+        }
+        
+        // Lightbox functionality
+        function openLightbox(src) {
+            const lightbox = document.createElement('div');
+            lightbox.className = 'image-lightbox';
+            lightbox.innerHTML = `
+                <div class="lightbox-content">
+                    <img src="${src}" alt="Project image">
+                    <button class="lightbox-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+                </div>
+            `;
+            document.body.appendChild(lightbox);
+            
+            // Close on background click
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.remove();
+                }
             });
         }
     </script>
