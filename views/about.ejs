@@ -31,6 +31,20 @@
   }
   .about-panel p { color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; }
   @media (max-width: 768px) { .about-panel p { font-size: 1rem; } }
+  
+  /* Scroll hint */
+  .scroll-hint {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    animation: fadeInOut 2s ease-in-out infinite;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+  }
 </style>
 <body>
     <div class="bubble-container" id="bubbleContainer"></div>
@@ -45,6 +59,7 @@
             <section class="hero-section">
                 <h1 class="hero-title"><span class="gradient-text">About Me</span></h1>
                 <p class="hero-subtitle">A blend of data, code, and curiosity — building experiences with intention.</p>
+                <p class="scroll-hint">↓ Scroll for more ↓</p>
             </section>
             <article class="about-panel" data-idx="0">
                 <p>I've always had a love-hate relationship with computers: I love them when they work and hate them when they don't. After high school, I flirted with the idea of understanding how these mysterious boxes worked. But life had other plans, and I took a two-year hiatus. Like all great stories, though, mine had a comeback! In the summer of 2022, I rekindled that old flame and dove headfirst into the world of technology by joining Western University to pursue a degree in Computer Science.</p>
