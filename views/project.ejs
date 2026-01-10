@@ -88,27 +88,29 @@
         const cover = document.querySelector('.project-cover');
         const thumbs = document.querySelectorAll('.thumb');
         
-        // Switch main image on thumbnail click
-        if (cover && thumbs.length > 0) {
+        // Click main image to open lightbox (all devices)
+        if (cover) {
+            cover.style.cursor = 'pointer';
+            cover.addEventListener('click', () => {
+                openLightbox(cover.src);
+            });
+        }
+        
+        // Thumbnail clicks
+        if (thumbs.length > 0) {
             thumbs.forEach(t => {
-                // Regular click to switch
+                t.style.cursor = 'pointer';
                 t.addEventListener('click', (e) => {
-                    if (window.innerWidth > 768) {
-                        // Desktop: just switch the image
-                        cover.src = t.dataset.src;
+                    const imgSrc = t.dataset.src;
+                    if (window.innerWidth > 768 && cover) {
+                        // Desktop: switch main image first, then can click to lightbox
+                        cover.src = imgSrc;
                     } else {
-                        // Mobile: open in lightbox
-                        openLightbox(t.dataset.src);
+                        // Mobile: open in lightbox directly
+                        openLightbox(imgSrc);
                     }
                 });
             });
-            
-            // Desktop: click main image to open lightbox
-            if (window.innerWidth > 768) {
-                cover.addEventListener('click', () => {
-                    openLightbox(cover.src);
-                });
-            }
         }
         
         // Lightbox functionality

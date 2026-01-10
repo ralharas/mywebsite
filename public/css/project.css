@@ -152,6 +152,10 @@
         padding: 1rem;
     }
     
+    .project-detail-grid {
+        gap: 1.5rem;
+    }
+    
     .project-cover, .project-video {
         height: 250px;
         cursor: pointer;
@@ -166,13 +170,45 @@
         justify-content: center;
     }
     
+    .project-info {
+        padding: 1.5rem;
+    }
+    
+    .project-info-title {
+        font-size: 1.1rem;
+    }
+    
+    .project-info-desc {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
     .project-actions {
         flex-direction: column;
+        gap: 0.75rem;
     }
     
     .project-btn {
         width: 100%;
         justify-content: center;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .walkthrough {
+        margin-top: 1.5rem;
+    }
+    
+    .walkthrough-list {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        padding-left: 1.2rem;
+    }
+    
+    .walkthrough-list li {
+        margin-bottom: 0.5rem;
     }
     
     .lightbox-close {
