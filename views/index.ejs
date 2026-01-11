@@ -254,9 +254,17 @@
                         } else if (currentIndex < panels.length - 1) {
                             showContent(currentIndex + 1); // Next panel
                             acted = true;
+                        } else if (currentIndex === panels.length - 1) {
+                            // Loop: Last panel back to hero
+                            showContent(-1);
+                            acted = true;
                         }
                     } else if (direction < 0) { // Scroll up
-                        if (currentIndex === 0) {
+                        if (currentIndex === -1) {
+                            // Loop: Hero back to last panel when scrolling up
+                            showContent(panels.length - 1);
+                            acted = true;
+                        } else if (currentIndex === 0) {
                             showContent(-1); // First panel to hero
                             acted = true;
                         } else if (currentIndex > 0) {

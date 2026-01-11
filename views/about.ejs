@@ -115,8 +115,18 @@
                     if (dir > 0){
                         if (currentIndex === -1){ showContent(0); acted = true; }
                         else if (currentIndex < panels.length-1){ showContent(currentIndex+1); acted=true; }
+                        else if (currentIndex === panels.length-1){ 
+                            // Loop: Last panel back to hero
+                            showContent(-1); 
+                            acted=true; 
+                        }
                     } else if (dir < 0){
-                        if (currentIndex === 0){ showContent(-1); acted=true; }
+                        if (currentIndex === -1){ 
+                            // Loop: Hero back to last panel when scrolling up
+                            showContent(panels.length-1); 
+                            acted=true; 
+                        }
+                        else if (currentIndex === 0){ showContent(-1); acted=true; }
                         else if (currentIndex > 0){ showContent(currentIndex-1); acted=true; }
                     }
                     if (!acted) gestureLocked = false;
