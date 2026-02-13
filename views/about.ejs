@@ -28,8 +28,18 @@
     text-align: left;
     opacity: 0; visibility: hidden;
     z-index: 11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  .about-panel p { color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; }
+  .about-panel p { 
+    color: var(--text-secondary); 
+    line-height: 1.8; 
+    font-size: 1.1rem;
+    max-width: 800px;
+    text-align: left;
+  }
   @media (max-width: 768px) { .about-panel p { font-size: 1rem; } }
   
   /* Scroll hint */

@@ -1,6 +1,6 @@
 <script>
     // Create animated bubbles
-    function createBubble() {
+    function createBubble(immediate = false) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         const size = Math.random() * 100 + 50;
@@ -8,7 +8,7 @@
         bubble.style.height = size + 'px';
         bubble.style.left = Math.random() * window.innerWidth + 'px';
         bubble.style.animationDuration = (Math.random() * 20 + 10) + 's';
-        bubble.style.animationDelay = Math.random() * 5 + 's';
+        bubble.style.animationDelay = immediate ? '0s' : (Math.random() * 2 + 's');
         
         const container = document.getElementById('bubbleContainer');
         if (container) {
@@ -17,11 +17,12 @@
         }
     }
     
-    // Initialize bubbles
-    setInterval(createBubble, 2000);
-    for (let i = 0; i < 5; i++) {
-        setTimeout(createBubble, i * 500);
+    // Initialize bubbles immediately on page load
+    for (let i = 0; i < 8; i++) {
+        createBubble(true);
     }
+    // Continue creating bubbles over time
+    setInterval(createBubble, 2000);
     
     // Gradient cycle for borders
     const gradients = [

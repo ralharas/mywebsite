@@ -13,7 +13,12 @@
         @media (max-width: 768px) { :root { --nav-h: 64px; } }
         
         .hero-section {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(800px, 92vw);
+            text-align: center;
             z-index: 10;
         }
         
@@ -65,16 +70,29 @@
             padding: 0 4vw; /* keep text away from edges on mobile */
         }
         
-        .home-panel h3 { 
+        .home-panel h3,
+        .home-panel h1 { 
             margin-bottom: 1.25rem;
             font-size: clamp(1.25rem, 5vw, 2rem);
             line-height: 1.2;
+            text-align: center;
         }
         
         .home-panel p { 
             color: var(--text-secondary); 
             line-height: 1.7;
             font-size: clamp(0.95rem, 3.6vw, 1.1rem);
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .home-panel .panel-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Tune hero title/subtitle for mobile to avoid clipping */
