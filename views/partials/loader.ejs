@@ -1,0 +1,91 @@
+<link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
+
+<div id="ra-loader">
+  <div class="loader-monogram">
+    <span class="loader-letter" id="loader-r">R</span>
+    <span class="loader-letter" id="loader-a">A</span>
+  </div>
+  <div class="loader-line"></div>
+</div>
+
+<style>
+  #ra-loader {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+
+  #ra-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader-monogram {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  .loader-letter {
+    font-family: 'Bilbo Swash Caps', cursive;
+    font-size: clamp(72px, 18vw, 108px);
+    color: #ffffff;
+    line-height: 1;
+    opacity: 0;
+    display: inline-block;
+  }
+
+  #loader-r {
+    transform: translateX(-50px);
+    animation: slideInLeft 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;
+  }
+
+  #loader-a {
+    transform: translateX(50px);
+    animation: slideInRight 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards;
+  }
+
+  @keyframes slideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .loader-line {
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff, #ff00ff, #00ff88);
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+    animation: growLine 0.55s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
+  }
+
+  @keyframes growLine {
+    to { width: clamp(90px, 22vw, 130px); }
+  }
+</style>
+
+<script>
+  (function () {
+    function hideLoader() {
+      var loader = document.getElementById('ra-loader');
+      if (loader) loader.classList.add('fade-out');
+    }
+    // Hide after page load + brief hold so the animation is seen
+    window.addEventListener('load', function () {
+      setTimeout(hideLoader, 1900);
+    });
+    // Hard fallback: never block the page longer than 4s
+    setTimeout(hideLoader, 4000);
+  })();
+</script>

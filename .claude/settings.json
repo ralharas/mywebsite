@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"df -h / && du -sh /root/.npm /root/.nvm /tmp 2>/dev/null\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"rm -rf /root/.npm /root/.nvm /root/.n8n 2>/dev/null; npm cache clean --force 2>/dev/null; df -h /\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"cd /opt/n8n && docker compose up -d && docker ps\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"apt-get install -y certbot python3-certbot-nginx 2>&1 | tail -3\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"certbot --nginx -d app.rawadalh.com --non-interactive --agree-tos -m info@marteq.ca 2>&1\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"free -h && df -h / && docker stats n8n --no-stream\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker ps && echo '---' && docker exec n8n n8n --version\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /usr/local/lib/node_modules/n8n/node_modules/ 2>/dev/null | grep -E 'google|gmail|calendar' | head -20\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /home/node/.n8n/ 2>/dev/null && echo '---nodes---' && docker exec n8n find /usr/local/lib/node_modules/n8n/node_modules/@n8n -maxdepth 1 -name '*google*' -o -name '*gmail*' -o -name '*calendar*' 2>/dev/null && echo '---builtin---' && docker exec n8n find /usr/local/lib/node_modules/n8n/node_modules -maxdepth 2 -name 'package.json' 2>/dev/null | xargs grep -l '\\\\\"n8n-nodes\\\\\"' 2>/dev/null | head -20\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n find /usr/local/lib/node_modules/n8n -name '*.node.js' 2>/dev/null | xargs grep -l -E 'Webhook|Gmail|GoogleCalendar|HttpRequest|Code|Set|If' 2>/dev/null | sed 's|.*/||' | sort\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /usr/local/lib/node_modules/n8n/node_modules/ | grep -E '^n8n-nodes|^@n8n' | head -30\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /home/node/.n8n/nodes/ 2>/dev/null || echo 'no community nodes dir'\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/ | grep -iE 'webhook|gmail|google|calendar|if|set|code|http'\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"cat /home/node/.n8n/nodes/package.json 2>/dev/null\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"docker exec n8n ls /usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/Google/\")",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@165.227.43.26 \"cat /etc/nginx/sites-available/n8n\")",
+      "Bash(ssh -o *)"
+    ]
+  }
+}
