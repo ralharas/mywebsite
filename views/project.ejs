@@ -85,55 +85,124 @@
     
     <%- include('partials/common_scripts') %>
     
+    <style>
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 1.6rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+            user-select: none;
+            flex-shrink: 0;
+        }
+        .lightbox-arrow:hover { background: rgba(0,212,255,0.35); }
+        .lightbox-arrow.prev { left: 16px; }
+        .lightbox-arrow.next { right: 16px; }
+        .lightbox-arrow.hidden { opacity: 0; pointer-events: none; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+    </style>
+
     <script>
-        // Image gallery with lightbox
+        // Build image list from thumbs
         const cover = document.querySelector('.project-cover');
         const thumbs = document.querySelectorAll('.thumb');
-        
-        // Click main image to open lightbox (all devices)
-        if (cover) {
-            cover.style.cursor = 'pointer';
-            cover.addEventListener('click', () => {
-                openLightbox(cover.src);
-            });
-        }
-        
-        // Thumbnail clicks
-        if (thumbs.length > 0) {
-            thumbs.forEach(t => {
-                t.style.cursor = 'pointer';
-                t.addEventListener('click', (e) => {
-                    const imgSrc = t.dataset.src;
-                    if (window.innerWidth > 768 && cover) {
-                        // Desktop: switch main image first, then can click to lightbox
-                        cover.src = imgSrc;
-                    } else {
-                        // Mobile: open in lightbox directly
-                        openLightbox(imgSrc);
-                    }
-                });
-            });
-        }
-        
-        // Lightbox functionality
+        const images = Array.from(thumbs).map(t => t.dataset.src).filter(Boolean);
+
+        let currentIndex = 0;
+        let activeLightbox = null;
+
         function openLightbox(src) {
-            const lightbox = document.createElement('div');
-            lightbox.className = 'image-lightbox';
-            lightbox.innerHTML = `
-                <div class="lightbox-content">
-                    <img src="${src}" alt="Project image">
-                    <button class="lightbox-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+            currentIndex = images.indexOf(src);
+            if (currentIndex === -1) currentIndex = 0;
+
+            if (activeLightbox) activeLightbox.remove();
+
+            const lb = document.createElement('div');
+            lb.className = 'image-lightbox';
+            lb.innerHTML = `
+                <div class="lightbox-content" style="position:relative;">
+                    <img src="${images[currentIndex]}" alt="Project image" id="lb-img">
+                    <button class="lightbox-close" id="lb-close">&times;</button>
+                    <button class="lightbox-arrow prev" id="lb-prev">&#8592;</button>
+                    <button class="lightbox-arrow next" id="lb-next">&#8594;</button>
+                    <span class="lightbox-counter" id="lb-counter"></span>
                 </div>
             `;
-            document.body.appendChild(lightbox);
-            
-            // Close on background click
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.remove();
+            document.body.appendChild(lb);
+            activeLightbox = lb;
+            updateLightbox();
+
+            lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+            lb.querySelector('#lb-close').addEventListener('click', closeLightbox);
+            lb.querySelector('#lb-prev').addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+            lb.querySelector('#lb-next').addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+        }
+
+        function updateLightbox() {
+            if (!activeLightbox) return;
+            activeLightbox.querySelector('#lb-img').src = images[currentIndex];
+            activeLightbox.querySelector('#lb-counter').textContent = images.length > 1 ? `${currentIndex + 1} / ${images.length}` : '';
+            activeLightbox.querySelector('#lb-prev').classList.toggle('hidden', currentIndex === 0);
+            activeLightbox.querySelector('#lb-next').classList.toggle('hidden', currentIndex === images.length - 1);
+        }
+
+        function navigate(dir) {
+            const next = currentIndex + dir;
+            if (next >= 0 && next < images.length) {
+                currentIndex = next;
+                updateLightbox();
+            }
+        }
+
+        function closeLightbox() {
+            if (activeLightbox) { activeLightbox.remove(); activeLightbox = null; }
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', e => {
+            if (!activeLightbox) return;
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Cover click
+        if (cover) {
+            cover.style.cursor = 'pointer';
+            cover.addEventListener('click', () => openLightbox(cover.src));
+        }
+
+        // Thumbnail clicks
+        thumbs.forEach(t => {
+            t.style.cursor = 'pointer';
+            t.addEventListener('click', () => {
+                const src = t.dataset.src;
+                if (window.innerWidth > 768 && cover) {
+                    cover.src = src;
+                } else {
+                    openLightbox(src);
                 }
             });
-        }
+        });
     </script>
 </body>
 </html>
