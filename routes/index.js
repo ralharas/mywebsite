@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
 
 router.get('/projects', async (req, res) => {
     try {
-        const result = await db.query('SELECT * FROM projects ORDER BY id DESC');
+        const result = await db.query('SELECT * FROM projects ORDER BY sort_order ASC');
         res.render('projects', { projects: result.rows });
     } catch (err) {
         console.error(err);
